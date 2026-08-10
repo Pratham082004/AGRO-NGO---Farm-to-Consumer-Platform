@@ -99,12 +99,12 @@ while (ob_get_level() > 0) ob_end_flush();
     <div class="console-box" id="console">
 <?php
 echo ">>> sys.path:\n";
-echo shell_exec("C:\\Python313\\python.exe -m site");
+echo shell_exec("/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/ML/venv/bin/python3 -m site");
 
 echo "\n>>> Starting ML Script...\n\n";
 
-$python = "C:\\Python313\\python.exe";
-$script = "C:\\xampp\\htdocs\\AgroNGO\\ML\\mlscript.py";
+$python = "/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/ML/venv/bin/python3";
+$script = "/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/ML/mlscript.py";
 
 $descriptorspec = [
     1 => ['pipe', 'w'], 

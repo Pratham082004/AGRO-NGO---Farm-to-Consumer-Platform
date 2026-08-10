@@ -273,7 +273,7 @@ include("../Functions/functions.php");
 
                 <?php
                 if (isset($_SESSION['phonenumber'])) {
-                    echo "<a href='productsdetails.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Profile</a>";
+                    echo "<a href='BuyerProfile.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Profile</a>";
                     echo "<a href= 'Transaction.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Transactions</a>";
                     echo "<a href='saveforlater.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Save For Later</a>";
                     echo "<a href='#' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Subscriptions</a>";
@@ -304,7 +304,7 @@ include("../Functions/functions.php");
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <?php
                     if (isset($_SESSION['phonenumber'])) {
-                        echo "<a href='productsdetails.php' class='dropdown-item  ' style='padding-right:-20px;'>Profile</a>";
+                        echo "<a href='buyerprofile2.php' class='dropdown-item  ' style='padding-right:-20px;'>Profile</a>";
                         echo "<a href='Transaction.php' class='dropdown-item ' style='padding-right:-20px;'>Transactions</a>";
                         echo "<a href='#' class='dropdown-item'  style='padding-right:-20px;'>Subscriptions</a>";
                         echo "<a href='saveforlater.php' class='dropdown-item' style='padding-right:-20px;'>Save For Later</a>";
@@ -434,7 +434,7 @@ include("../Functions/functions.php");
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
                     <p><u><a href="https://www.agrocraft.com/">AgroNGO</a></u> is a project company for Farmers and Consumers</p>
-                    <p class="h6">Developed in 2025.<a class="text-green ml-2" href="https://www.google.com" target="_blank">AgroNGO</a></p>
+                    <p class="h6">Developed in 2026.<a class="text-green ml-2" href="https://www.google.com" target="_blank">AgroNGO</a></p>
 
 </div>
                 </hr>

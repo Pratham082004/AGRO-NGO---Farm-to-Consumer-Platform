@@ -184,45 +184,53 @@ $sessphonenumber = $_SESSION['phonenumber'];
 if (isset($_POST['insert_pro'])) {    // when button is clicked
 
     // getting the text data from fields
-    $product_title = $_POST['product_title'];
-    $product_cat = $_POST['product_cat'];
-    $product_type = $_POST['product_type'];
-    $product_stock = $_POST['product_stock'];
-    $product_price = $_POST['product_price'];
-    $product_expiry = $_POST['product_expiry'];
-    $product_desc = $_POST['product_desc'];
-    $product_keywords = $_POST['product_keywords'];
-    $product_delivery = $_POST['product_delivery'];
+    $product_title = mysqli_real_escape_string($con, $_POST['product_title'] ?? '');
+    $product_cat = mysqli_real_escape_string($con, $_POST['product_cat'] ?? '');
+    $product_type = mysqli_real_escape_string($con, $_POST['product_type'] ?? '');
+    $product_stock = mysqli_real_escape_string($con, $_POST['product_stock'] ?? '');
+    $product_price = mysqli_real_escape_string($con, $_POST['product_price'] ?? '');
+    $product_expiry = mysqli_real_escape_string($con, $_POST['product_expiry'] ?? '');
+    $product_desc = mysqli_real_escape_string($con, $_POST['product_desc'] ?? '');
+    $product_keywords = mysqli_real_escape_string($con, $_POST['product_keywords'] ?? '');
+    $product_delivery = mysqli_real_escape_string($con, $_POST['product_delivery'] ?? 'no');
 
     // getting image
-    $product_image = $_FILES['product_image']['name'];
-    $product_image_tmp = $_FILES['product_image']['tmp_name'];  // for server
+    $product_image = $_FILES['product_image']['name'] ?? '';
+    $product_image_tmp = $_FILES['product_image']['tmp_name'] ?? '';
 
     if (isset($_SESSION['phonenumber'])) {
-        move_uploaded_file($product_image_tmp, "../Admin/product_images/$product_image");
+        if (!empty($product_image)) {
+            move_uploaded_file($product_image_tmp, "../admins/product_images/$product_image");
+        }
 
         $phone = $_SESSION['phonenumber'];
-        $getting_id = "select * from farmerregistration where farmer_phone = $sessphonenumber";
+        $getting_id = "select * from farmerregistration where farmer_phone = '$phone'";
         $run = mysqli_query($con, $getting_id);
         $row = mysqli_fetch_array($run);
-        $id = $row['farmer_id'];
-        $insert_product = "insert into products (farmer_fk,product_title, product_cat, 
-                                product_type,product_expiry,product_image, product_stock, product_price,
-                                product_desc,  product_keywords, product_delivery) 
-                                values ('$id','$product_title','$product_cat','$product_type','$product_expiry','$product_image','$product_stock',
-                                        '$product_price','$product_desc',
-                                        '$product_keywords','$product_delivery')";
+        
+        if ($row) {
+            $id = $row['farmer_id'];
+            $insert_product = "insert into products (farmer_fk,product_title, product_cat, 
+                                    product_type,product_expiry,product_image, product_stock, product_price,
+                                    product_desc,  product_keywords, product_delivery) 
+                                    values ('$id','$product_title','$product_cat','$product_type','$product_expiry','$product_image','$product_stock',
+                                            '$product_price','$product_desc',
+                                            '$product_keywords','$product_delivery')";
 
-        $insert_query = mysqli_query($con, $insert_product);
-        echo $insert_product;
-        if ($insert_query) {
-            echo "<script>alert('Product has been added')</script>";
-            echo "<script>window.open('farmerHomepage.php','_self')</script>";
+            $insert_query = mysqli_query($con, $insert_product);
+            
+            if ($insert_query) {
+                echo "<script>alert('Product has been added successfully!')</script>";
+                echo "<script>window.open('farmerHomepage.php','_self')</script>";
+            } else {
+                $error = mysqli_error($con);
+                echo "<script>alert('Error Uploading Data: " . addslashes($error) . "')</script>";
+            }
         } else {
-            echo "<script>alert('Error Uploading Data Please Check your Connections ')</script>";
+            echo "<script>alert('Error: Could not find farmer profile.')</script>";
         }
+    } else {
+        echo "<script>alert('Error: You are not logged in.')</script>";
     }
 }
-
-
 ?>

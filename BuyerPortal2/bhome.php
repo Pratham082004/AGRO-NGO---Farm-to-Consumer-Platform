@@ -520,7 +520,7 @@ echo "<a href='BuyerProfile.php' class='list-group-item list-group-item-action' 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <?php
                     if (isset($_SESSION['phonenumber'])) {
-                        echo "<a href='../BuyerEditProfile.php' class='dropdown-item  ' style='padding-right:-20px;'>Profile</a>";
+                        echo "<a href='buyerprofile2.php' class='dropdown-item  ' style='padding-right:-20px;'>Profile</a>";
                         echo "<a href='Transaction.php' class='dropdown-item ' style='padding-right:-20px;'>Transactions</a>";
 
 echo "<a href='InsertProduct.php' class='dropdown-item ' style='padding-right:-20px;'>Add food</a>";
@@ -684,7 +684,7 @@ echo "<a href='InsertProduct.php' class='dropdown-item ' style='padding-right:-2
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
                 <p><u><a href="https://www.agrongo.com/">AgroNGO</a></u> is a project company for Farmers and Consumers</p>
-                <p class="h6">Developed in 2025. All rights reserved.</p>
+                <p class="h6">Developed in 2026. All rights reserved.</p>
                 </div>
                 </hr>
             </div>

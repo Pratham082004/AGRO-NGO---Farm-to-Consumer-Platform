@@ -429,7 +429,7 @@
                  <div class="row">
                       <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
                           <p><u><a href="https://www.agrocraft.com/">AgroNGO </a></u> is a project company for Farmers and Consumers</p>
-                    <p class="h6">Developed in 2025.<a class="text-green ml-2" href="https://www.google.com" target="_blank">AgroNGO</a></p>
+                    <p class="h6">Developed in 2026.<a class="text-green ml-2" href="https://www.google.com" target="_blank">AgroNGO</a></p>
    </div>
                       </hr>
                  </div>

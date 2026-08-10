@@ -374,7 +374,7 @@
                                 <div class="form-group row">
                                     <label for="states" class="col-md-4 col-form-label text-md-right"><b><i class="fas fa-globe-americas mr-2"></i>District</b></label>
                                     <div class="col-md-6">
-                                        <select name="district" id="district" class="form-control border border-dark">>
+                                        <select name="district" id="district" class="form-control border border-dark">
                                             <option>Select District</option>
                                         </select>
                                     </div>

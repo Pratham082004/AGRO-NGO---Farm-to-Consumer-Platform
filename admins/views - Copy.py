@@ -10,7 +10,7 @@ while True:
           host="127.0.0.1",
           user="root",
           passwd="",
-          database="tms"
+          database="tms2"
         )
 
     mycursor = mydb.cursor()

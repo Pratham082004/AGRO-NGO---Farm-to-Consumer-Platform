@@ -361,14 +361,18 @@ if (isset($_POST['register'])) {
 		'$mail','$username','$encryption')";
 
 		$run_register_query = mysqli_query($con, $query);
-		echo "<script>alert('SucessFully Inserted');</script>";
-		echo "<script>window.open('BuyerLogin.php','_self')</script>";
+		if ($run_register_query) {
+			echo "<script>alert('Successfully Inserted!');</script>";
+			echo "<script>window.open('BuyerLogin.php','_self')</script>";
+		} else {
+			$error = mysqli_error($con);
+			echo "<script>alert('Registration Failed: " . addslashes($error) . "');</script>";
+		}
 	} else if (strcmp($password, $confirmpassword) != 0) {
 		echo "<script>
 			alert('Password and Confirm Password Should be same');
 		</script>";
 	}
 }
-
 
 ?>

@@ -4,4 +4,4 @@ session_start();
 
 session_destroy();
 
-echo "<script>window.open('../BuyerPortal2/bhome.php','_self')</script>";
+echo "<script>window.open('../index.html','_self')</script>";

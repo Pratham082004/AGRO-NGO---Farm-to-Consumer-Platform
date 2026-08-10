@@ -540,7 +540,7 @@ include("../Functions/functions.php");
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
                 <p><u><a href="https://www.agrongo.com/">AgroNGO</a></u> is a project company for Farmers and Consumers</p>
-                <p class="h6">Developed in 2025. All rights reserved.</p>
+                <p class="h6">Developed in 2026. All rights reserved.</p>
             </div>
                 </hr>
             </div>

@@ -13,7 +13,7 @@ import os
 from mimetypes import guess_type
 
 # 1. Load and clean training data
-train = pd.read_csv(r'C:\xampp\htdocs\AgroNGO\ML\GFG1.csv')
+train = pd.read_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'GFG1.csv'))
 train = train.dropna()
 train = train.head(500)
 
@@ -30,8 +30,8 @@ clf.fit(train_count, y)
 
 # 4. Function to send email with product info and inline image
 def send_mail(to_email, product_name, category, image_path):
-    fromaddr = "sanchitsrivasta64@gmail.com"  # Your email
-    password = "grffnzjuutnkhskg"              # Your Gmail app password
+    fromaddr = "pranavagone080304@gmail.com"  # Your email
+    password = "mpct qlci ines uexr"            # Your Gmail App Password
 
     msg = MIMEMultipart('related')
     msg['From'] = fromaddr
@@ -91,7 +91,7 @@ try:
         host="127.0.0.1",
         user="root",
         passwd="",
-        database="impulse101"
+        database="impulse102"
     )
 
     mycursor = mydb.cursor()
@@ -129,7 +129,7 @@ try:
                     host="127.0.0.1",
                     user="root",
                     passwd="",
-                    database="tms"
+                    database="tms2"
                 )
                 cursor2 = db2.cursor()
                 cursor2.execute("SELECT comm FROM churn")
@@ -140,7 +140,7 @@ try:
                     # Use absolute path for image to avoid path issues
                     image_path = None
                     if product_image:
-                        base_folder = r"C:\xampp\htdocs\AgroNGO\Admin\product_images"
+                        base_folder = "/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/Admin/product_images"
                         possible_path = os.path.abspath(os.path.join(base_folder, product_image))
                         if os.path.isfile(possible_path):
                             image_path = possible_path
