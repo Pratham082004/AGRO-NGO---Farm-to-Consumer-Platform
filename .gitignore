@@ -1,0 +1,54 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Python Virtual Environments & Packages
+venv/
+.venv/
+env/
+ENV/
+ML/venv/
+ML/env/
+ML/.venv/
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Environment Variables & Secrets
+.env
+*.env
+ML/.env
+
+# IDE & Code Editor Files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.bak
+*.swp
+*.swo
+
+# Trained ML Models & Large Artifacts
+*.sav
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# Logs & Temporary Files
+*.log
+logs/
+tmp/
+temp/

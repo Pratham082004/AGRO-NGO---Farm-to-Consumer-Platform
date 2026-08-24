@@ -1,428 +1,29 @@
 <?php
-
 include("../Functions/functions.php");
+include("../Includes/components/navbar.php");
+include("../Includes/components/footer.php");
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <a href="https://icons8.com/icon/83325/roman-soldier"></a>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="https://kit.fontawesome.com/c587fc1763.js" crossorigin="anonymous"></script>
+    <title>Product Details — AgroNGO</title>
+    <link rel="stylesheet" href="../Styles/agronogo-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<style>
-    .myfooter {
-        background-color: #292b2c;
-
-        color: goldenrod;
-        margin-top: 15px;
-    }
-
-    .aligncenter {
-        text-align: center;
-    }
-
-    a {
-        color: goldenrod;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    nav {
-        background-color: #292b2c;
-    }
-
-    .navbar-custom {
-        background-color: #292b2c;
-    }
-
-    /* change the brand and text color */
-    .navbar-custom .navbar-brand,
-    .navbar-custom .navbar-text {
-        background-color: #292b2c;
-    }
-
-    .navbar-custom .navbar-nav .nav-link {
-        background-color: #292b2c;
-    }
-
-    .navbar-custom .nav-item.active .nav-link,
-    .navbar-custom .nav-item:hover .nav-link {
-        background-color: #292b2c;
-    }
-
-    .firstimage {
-        height: 500px;
-        width: 100%;
-    }
-
-    .mybtn {
-        border-color: green;
-        border-style: solid;
-    }
-
-    .card {
-        width: 100%;
-        height: 100%;
-        margin: 10px;
-    }
-
-    .right {
-        display: flex;
-    }
-
-    .left {
-        display: none;
-    }
-
-    .cart {
-        /* margin-left:10px; */
-        margin-right: -9px;
-    }
-
-    .profile {
-        margin-right: 2px;
-
-    }
-
-    .login {
-        margin-right: -2px;
-        margin-top: 12px;
-        display: none;
-    }
-
-    .searchbox {
-        width: 60%;
-    }
-
-    .lists {
-        display: inline-block;
-    }
-
-    .moblists {
-        display: none;
-    }
-
-    .logins {
-        text-align: center;
-        margin-right: -30%;
-        margin-left: 35%;
-    }
-
-    .imageblock {
-        padding-left: 0%;
-    }
-
-    .image {
-        margin-left: 0%;
-        background-color: #ff5500;
-    }
-
-    .addtocart {
-        margin-top: 30%;
-        padding: 4%;
-        margin-bottom: 10%;
-    }
-
-    .saveforlater {
-        margin-top: 30%;
-        padding: 2%;
-        margin-bottom: 10%;
-    }
-
-    .quantity {
-        margin-top: 20%;
-
-    }
-
-    .quantitynumber {
-        margin-top: 20%;
-    }
-
-    .wholequantity {
-        width: 70%;
-        margin-left: 15%;
-        margin-right: 15%;
-    }
-
-    .price {
-        margin-left: 0%;
-        /* border-style: solid; */
-        padding: 0%;
-    }
-
-    .stock {
-        margin-right: -10%;
-        /* border-style: solid; */
-    }
-
-    .description {
-        text-align: left;
-    }
-
-    .chat {
-        margin-bottom: 20px;
-        margin-top: 10px;
-    }
-
-    .query {
-        margin-top: 60px;
-    }
-
-    #headings {
-        text-shadow: 2px 1px #666666;
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-    }
-
-    @media only screen and (min-device-width:320px) and (max-device-width:480px) {
-        .description {
-            text-align: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-
-
-        .firstimage {
-            height: auto;
-            width: 90%;
-        }
-
-        .card {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-
-        }
-
-        .col {
-            margin-top: 20px;
-        }
-
-
-
-
-
-        .right {
-            display: none;
-            background-color: #ff5500;
-        }
-
-        /* 
-            .settings{
-            margin-left:79%;
-        } */
-        .left {
-            display: flex;
-        }
-
-        .moblogo {
-            display: none;
-        }
-
-        .logins {
-            text-align: center;
-            margin-right: 35%;
-            padding: 15px;
-        }
-
-        .searchbox {
-            width: 95%;
-            margin-right: 5%;
-            margin-left: 0%;
-        }
-
-        .moblists {
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-        }
-
-        .imageblock {
-            padding-left: 0%;
-        }
-
-        .image {
-            margin-left: 10%;
-            background-color: #ff5500;
-        }
-
-        .addtocart {
-            margin-top: 0%;
-            margin-bottom: 0%;
-            width: 88%;
-            margin-left: 12%;
-            margin-top: 10%;
-            margin-bottom: 10%;
-        }
-
-        .saveforlater {
-            margin-top: 0%;
-            margin-bottom: 0%;
-            width: 88%;
-            margin-left: 12%;
-            margin-top: 5%;
-            margin-bottom: 10%;
-        }
-
-        .quantity {
-            margin-top: 0%;
-
-        }
-
-        .quantitynumber {
-            margin-top: 0%;
-        }
-
-        .wholequantity {
-            margin-top: 0%;
-            margin-bottom: 0%;
-            width: 88%;
-            margin-left: 12%;
-            margin-top: 10%;
-            margin-bottom: 10%;
-        }
-
-        .price {
-            margin-top: 0%;
-            margin-bottom: 0%;
-            width: 80%;
-            margin-left: 5%;
-            margin-right: 15%;
-            /* margin-top:10%;
-    margin-bottom:10%; */
-        }
-
-        .stock {
-            margin-top: 0%;
-            margin-bottom: 0%;
-            width: 80%;
-            margin-right: 15%;
-            margin-left: 5%;
-            /* margin-top:10%;
-    margin-bottom:10%; */
-        }
-
-        .chat {
-            margin-bottom: 25px;
-            margin-top: 20px;
-        }
-    }
-</style>
-
 <body>
-<nav class="navbar navbar-expand-xl ">
 
-        <div class=" flex-row-reverse left ">
-
-            <div class="p-2">
-                <div class="icon2">
-                    <a href="CartPage.php"> <i class="fa" style="font-size:30px; color:green ;margin-top:2px;">&#61562;</i></a>
-                    <span id="icon" style="color:green"> <?php echo totalItems(); ?> </span>
-                </div>
-            </div>
-            <div class="p-2 ml-5"><i class='far fa-user-circle' style='font-size:30px; color: green;margin-top:2px;'></i></div>
-            <a class="float-left" href="bhome.php">
-                <img src="agro.png" class="float-left mr-5 ml-0 " alt="Logo" style="height:50px;">
-            </a>
-        </div>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><i class="fas fa-bars p-1 " style="color:green;margin-right:-9%;font-size:28px;"></i></span>
-        </button>
-        <a class="float-left" href="bhome.php">
-            <img src="AGRONGO.png" class="float-left mr-2 moblogo" alt="Logo" style="height:80px;">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <div class="input-group mb-1 ml-2 searchbox">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fas fa-search" style="font-size:20px;color:green; "></i></div>
-                </div>
-                <form action="SearchResult.php" method="get" enctype="multipart/form-data">
-                    <input type="text" class="form-control " id="inlineFormInputGroup" name="search" placeholder="Search for fruits,vegetables or crops " style="width:500px;">
-                </form>
-            </div>
-            <?php
-            getUsername();
-            ?>
-            <div class="list-group moblists">
-
-                <?php
-                if (isset($_SESSION['phonenumber'])) {
-                    echo "<a href='BuyerProfile.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Profile</a>";
-                    echo "<a href= 'Transaction.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Transactions</a>";
-                    echo "<a href='saveforlater.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Save For Later</a>";
-                    echo "<a href='#' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Subscriptions</a>";
-                    echo "<a href='farmer.php' class='list-group-item list-group-item-action' style='background-color:#292b2c;text-align:center;color:goldenrod'>Farmers</a>";
-                    echo "<a href='../Includes/logout.php' class='list-group-item list-group-item-action ' style='background-color:#292b2c;text-align:center;color:goldenrod'>Logout</a>";
-                } else {
-                    echo "<a href='../auth/BuyerLogin.php' class='list-group-item list-group-item-action ' style='background-color:#292b2c;text-align:center;color:goldenrod'>Login</a>";
-                }
-                ?>
-
-            </div>
-        </div>
-
-
-
-
-        <div class=" flex-row-reverse right ">
-            <div class="p-2 cart">
-                <div class="icon2">
-                    <a href="CartPage.php"> <i class="fa" style="font-size:30px; color:green">&#61562;</i></a>
-                    <span id="icon" style="color:green"> <?php echo totalItems(); ?> </span>
-                </div>
-            </div>
-            <div class="dropdown p-2 settings ">
-                <button class="btn  dropdown-toggle text-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Settings
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <?php
-                    if (isset($_SESSION['phonenumber'])) {
-                        echo "<a href='BuyerProfile2.php' class='dropdown-item  ' style='padding-right:-20px;'>Profile</a>";
-                        echo "<a href='Transaction.php' class='dropdown-item ' style='padding-right:-20px;'>Transactions</a>";
-                        echo "<a href='#' class='dropdown-item'  style='padding-right:-20px;'>Subscriptions</a>";
-                        echo "<a href='saveforlater.php' class='dropdown-item' style='padding-right:-20px;'>Save For Later</a>";
-                        echo "<a href='farmers.php' class='dropdown-item' style='padding-right:-20px;' >Farmers</a>";
-                        echo "<a href='../Includes/logout.php' class='dropdown-item ' style='padding-right:-20px;'>Logout</a>";
-                    } else {
-                        echo "<a href='../auth/BuyerLogin.php' class='dropdown-item ' style='padding-right:-20px;'>Login</a>";
-                    }
-                    ?>
-                </div>
-            </div>
-
-
-            <div class="text-success  login">Login</div>
-        </div>
-
-    </nav>
-
-
+    <!-- Shared Navbar -->
+    <?php agro_navbar('buyer', 'categories'); ?>
 
     <?php
-
     if (isset($_GET['id'])) {
         global $con;
-        $product_id  = $_GET['id'];
+        $product_id  = intval($_GET['id']);
         $query = "select * from products where product_id = $product_id";
         $run_query = mysqli_query($con, $query);
-        echo "<br>";
+
         while ($rows = mysqli_fetch_array($run_query)) {
             $farmer_fk = $rows['farmer_fk'];
             $product_title = $rows['product_title'];
@@ -432,124 +33,134 @@ include("../Functions/functions.php");
             $product_type = $rows['product_type'];
             $product_delivery = $rows['product_delivery'];
             $product_desc = $rows['product_desc'];
-            if ($product_delivery == "yes") {
-                $product_delivery = "Delivery by Farmer";
-            } else {
-                $product_delivery = "Delivery by Farmer Not Available";
-            }
-            $querya = "select * from farmerregistration where farmer_id = $farmer_fk";
+            $storage_condition = $rows['storage_condition'] ?? 'Ambient';
+            $is_processed = $rows['is_processed'] ?? 0;
+
+            $delivery_text = ($product_delivery == "yes") ? "Delivery by Farmer Available" : "Self-Pickup / Courier";
+
+            $querya = "select * from farmerregistration where farmer_id = '$farmer_fk'";
             $runa_query = mysqli_query($con, $querya);
 
-            while ($rows = mysqli_fetch_array($runa_query)) {
-                $name = $rows['farmer_name'];
-                $phone = $rows['farmer_phone'];
-                $address = $rows['farmer_address'];
-                $state = $rows['farmer_state'];
-                $district = $rows['farmer_district'];
-
-
-                echo "
-                <div class='container'>
-                    <div class='text-center'>
-                        <br>
-                        <h1 id='headings' class='font-weight-bold'>$product_title</h1>
-                    </div>
-                    <br>
-
-
-                    <div class='row'>
-                        <div class='col-12 col-xl-4 col-lg-4 col-md-4 col-sm-12   imageblock border border-dark'> <img src='../Admin/product_images/$product_image' class='d-flex mx-auto btn-dark image' height='290px;' width='380px;'><br>
-                            <b>
-                                <div class='text-center'>
-                                    <h2>$product_type</h2>
-                                    <br>
-                                </div>
-                            </b></div>
-
-                        <div class='col-12 col-xl-4 col-lg-4 col-md-4 col-sm-12 block border border-dark'>
-                            <div class='text-center mt-2 ''>
-                            
-                                <br>
-                                <div class='row'>
-                                    <div class='col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 price'>
-                                        <h5><b>Price : </b>$product_price /kg</h5>
-
-                                    </div>
-                                    <div class='col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 stock'>
-                                        <h5><b>Stock : </b>$product_stock kgs</h5>
-                                    </div>
-                                </div>
-                                <form actions='' method='post'>
-                                    <div class='text-center'>
-                                        <div class='input-group mb-3 wholequantity'>
-                                            <div class='input-group-prepend quantity'>
-                                                <span class='input-group-text bg-warning border-secondary quantitylabel' style='color:black' id='inputGroup-sizing-default' ><b>Quantity </b><i class='fas fa-shopping-bag'></i></span>
-                                            </div>
-                                            <input type='number' name='qty' placeholder=1 class='form-control quantitynumber' aria-label='Default' aria-describedby='inputGroup-sizing-default'>
-                                        </div>
-                                    </div>
-                                    <div class='row'>
-                                        <div class='col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12'> 
-                                            <button name='cart' type='submit' class='btn btn-warning border-secondary addtocart' style='color:black'><b>Add to cart</b><i class='fa' style='font-size:17px; '>&#61562;</i></button>
-                                        </div>
-                                        <div class='col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12'> <a href='#' class='btn btn-warning border-secondary saveforlater' style='color:black'><b>Save For later</b><img src='saveforlater4.png' class='ml-1 mb-1'></a></div>
-                                    </div>
-                                </form>
-                                <div class='row text-center ml-4 mt-3'>
-                                    <i class='fa fa-truck fa-2x'></i>
-                                    <h3 style='padding-left:9px;'>$product_delivery</h3>
-                                </div>
-                                  <div class='row text-center ml-4 mt-3'>
-                                   <i class='fas fa-map-marker-alt fa-1x'></i>
-                                    <h5 style='padding-left:9px;'>$district , $state </h5>
-                                </div>
-
-                            </div>
+            while ($rows_f = mysqli_fetch_array($runa_query)) {
+                $farmer_name = $rows_f['farmer_name'];
+                $farmer_phone = $rows_f['farmer_phone'];
+                $farmer_address = $rows_f['farmer_address'];
+                $farmer_state = $rows_f['farmer_state'];
+                $farmer_district = $rows_f['farmer_district'];
+                ?>
+                
+                <!-- Page Header -->
+                <div class="agro-page-header" style="background: var(--surface-primary); border-bottom: 1px solid var(--gray-200);">
+                    <div class="agro-container">
+                        <div class="agro-page-header__breadcrumb">
+                            <a href="bhome.php">Home</a> / <a href="Categories.php">Products</a> / <span><?php echo htmlspecialchars($product_title); ?></span>
                         </div>
-                        <div class='col-12 col-xl-4 col-lg-4 col-md-4 col-sm-12 text-white' style='background-color:#292b2c;'>
-                            <div class='text-center farmerdetails mt-4 ' style='color:goldenrod'><b>
-                                    <b>
-                                        <h2>Farmer Details
-                                        </h2>
-                                    </b>
-                                </b>
-                            </div>
-                            <div class='details mt-1 text-center'>
-                                <h5><b> Name </b><span style='color:ghostwhite'>: $name</span></h5>
-
-                                <h5><b> Phone Number </b><span style='color:ghostwhite'>:$phone</span></h5>
-                                <br>
-                                <h4 style='color:goldenrod' class='text-center '>Get In touch with Farmer</h4>
-                                <a href='BuyerPageFarmerProfile.php' class='btn btn-warning border-secondary  chat' style='color:black;padding:2px;'><b> View Farmer Profile <i class='fas fa-id-card-alt pl-1'></i> </b></a>
-
-                                <h4 style='color:goldenrod' class='text-center ''>Have Some Query ?<br></h4>
-                                <a href='#' class='btn btn-warning border-secondary  chat' style='color:black;padding:2px;'><b>CHAT HERE</b><img src='chat2.png' class='ml-1 mb-1'></a>
-
-                                <!-- <b> Address</b> : Lorem ipsum dolor, sit Eum, ad eaque earum voluptates nemo vero possimus, dolor aspernatur ea aut quisquam quas consequuntur distinctio! -->
-                            </div>
+                        <h1 class="agro-page-header__title"><?php echo htmlspecialchars($product_title); ?></h1>
+                        <div class="agro-flex" style="gap: var(--space-3); margin-top: var(--space-2);">
+                            <span class="agro-badge agro-badge--green"><i class="fas fa-seedling"></i> <?php echo htmlspecialchars($product_type); ?></span>
+                            <span class="agro-badge agro-badge--blue"><i class="fas fa-snowflake"></i> <?php echo htmlspecialchars($storage_condition); ?></span>
+                            <?php if ($is_processed): ?>
+                                <span class="agro-badge agro-badge--amber"><i class="fas fa-industry"></i> Processed</span>
+                            <?php endif; ?>
                         </div>
                     </div>
+                </div>
 
-                    <br><br>
-                    <div class='  description mt-0'><b>
-                            <h2 class='text-center font-weight-bold'>Description</h2>
-                        </b></div>
-                    <br>
-                    <div class='texty' style='margin-top:0%; font-size:25px;'> $product_desc.</div>
+                <!-- Product Details Grid -->
+                <div class="agro-container agro-section">
+                    <div class="agro-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: var(--space-8); align-items: start;">
+                        
+                        <!-- Col 1: Image Card -->
+                        <div class="agro-card agro-p-4">
+                            <div class="agro-product-card__image-wrap" style="height: 320px; border-radius: var(--radius-xl);">
+                                <img src="../Admin/product_images/<?php echo htmlspecialchars($product_image); ?>" alt="<?php echo htmlspecialchars($product_title); ?>" class="agro-product-card__image">
+                            </div>
+                        </div>
 
-                    
-                </div>";
+                        <!-- Col 2: Pricing & Add to Cart -->
+                        <div class="agro-card agro-p-6">
+                            <div class="agro-mb-6">
+                                <div style="font-size: var(--text-xs); color: var(--text-tertiary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Price per kg</div>
+                                <div style="font-family: var(--font-display); font-size: var(--text-4xl); font-weight: 800; color: var(--color-primary);">₹<?php echo htmlspecialchars($product_price); ?> <span style="font-size: var(--text-sm); color: var(--text-tertiary); font-weight: 400;">/ kg</span></div>
+                            </div>
+
+                            <div class="agro-stat-card agro-mb-6" style="padding: var(--space-4);">
+                                <div class="agro-label"><i class="fas fa-boxes-stacked" style="margin-right:6px; color:var(--color-primary);"></i>Available Inventory</div>
+                                <div style="font-size: var(--text-lg); font-weight: 700; color: var(--text-primary);"><?php echo htmlspecialchars($product_stock); ?> kgs in stock</div>
+                            </div>
+
+                            <form action="" method="post" class="agro-mb-6">
+                                <div class="agro-form-group">
+                                    <label class="agro-label" for="qty"><i class="fas fa-scale-balanced" style="margin-right:6px; color:var(--color-primary);"></i>Select Quantity (kg)</label>
+                                    <input type="number" id="qty" name="qty" class="agro-input" value="1" min="1" max="<?php echo htmlspecialchars($product_stock); ?>" required>
+                                </div>
+
+                                <div class="agro-flex" style="gap: var(--space-3); flex-direction: column;">
+                                    <button type="submit" name="cart" class="agro-btn agro-btn--secondary agro-btn--full agro-btn--lg">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                    <a href="saveforlater.php?id=<?php echo $product_id; ?>" class="agro-btn agro-btn--outline agro-btn--full">
+                                        <i class="fas fa-heart"></i> Save For Later
+                                    </a>
+                                </div>
+                            </form>
+
+                            <div class="agro-flex" style="gap: var(--space-3); font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--space-3);">
+                                <i class="fas fa-truck" style="color: var(--color-primary); font-size: 1.1rem;"></i>
+                                <span><?php echo $delivery_text; ?></span>
+                            </div>
+
+                            <div class="agro-flex" style="gap: var(--space-3); font-size: var(--text-sm); color: var(--text-secondary);">
+                                <i class="fas fa-location-dot" style="color: var(--color-primary); font-size: 1.1rem;"></i>
+                                <span><?php echo htmlspecialchars($farmer_district . ', ' . $farmer_state); ?></span>
+                            </div>
+                        </div>
+
+                        <!-- Col 3: Farmer Card -->
+                        <div class="agro-card agro-p-6" style="background: linear-gradient(135deg, var(--gray-900), var(--gray-800)); color: white;">
+                            <div class="agro-text-center agro-mb-6">
+                                <div class="agro-navbar__avatar" style="width:64px; height:64px; font-size:1.6rem; margin: 0 auto var(--space-4); background: linear-gradient(135deg, var(--agro-green-400), var(--agro-green-600));">
+                                    <?php echo strtoupper(substr($farmer_name, 0, 1)); ?>
+                                </div>
+                                <h3 style="color: white; font-size: var(--text-xl);"><?php echo htmlspecialchars($farmer_name); ?></h3>
+                                <div style="font-size: var(--text-xs); color: var(--agro-green-400); font-weight: 600; text-transform: uppercase; margin-top: 4px;">Verified Producer</div>
+                            </div>
+
+                            <div class="agro-divider" style="background: rgba(255,255,255,0.1);"></div>
+
+                            <div style="font-size: var(--text-sm); display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-6);">
+                                <div>
+                                    <div style="color: var(--gray-400); font-size: var(--text-xs);">Contact Phone</div>
+                                    <div style="font-weight: 600; color: white;"><?php echo htmlspecialchars($farmer_phone); ?></div>
+                                </div>
+
+                                <div>
+                                    <div style="color: var(--gray-400); font-size: var(--text-xs);">Farm Location</div>
+                                    <div style="font-weight: 500; color: var(--gray-300);"><?php echo htmlspecialchars($farmer_address); ?></div>
+                                </div>
+                            </div>
+
+                            <a href="BuyerPageFarmerProfile.php?farmer_id=<?php echo $farmer_fk; ?>" class="agro-btn agro-btn--primary agro-btn--full">
+                                <i class="fas fa-id-card"></i> View Farmer Profile
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Description Section -->
+                    <div class="agro-card agro-p-8 agro-mt-8">
+                        <h3 style="margin-bottom: var(--space-4);"><i class="fas fa-circle-info" style="color:var(--color-primary); margin-right:8px;"></i>Produce Description</h3>
+                        <p style="font-size: var(--text-base); line-height: var(--leading-relaxed); color: var(--text-secondary);"><?php echo nl2br(htmlspecialchars($product_desc)); ?></p>
+                    </div>
+                </div>
+
+                <?php
             }
         }
     }
 
     if (isset($_POST['cart'])) {
-
-        if (isset($_POST['qty']) && !empty($_POST['qty'])) {
-            $qty = $_POST['qty'];
-        } else {
-            $qty = 1;
-        }
+        $qty = (isset($_POST['qty']) && intval($_POST['qty']) > 0) ? intval($_POST['qty']) : 1;
         global $con;
         if (isset($_SESSION['phonenumber'])) {
             $sess_phone_number = $_SESSION['phonenumber'];
@@ -566,45 +177,14 @@ include("../Functions/functions.php");
                 echo "<script>alert('Product added to cart successfully!'); window.location.reload(true);</script>";
             }
         } else {
-            echo "<script>window.alert('Please Login First!');</script>";
+            echo "<script>alert('Please Login First!');</script>";
         }
     }
     ?>
 
+    <!-- Shared Footer -->
+    <?php agro_footer('buyer'); ?>
 
-
-    <br><br>
-
-    <section id="footer" class="myfooter">
-        <div class="container">
-            <div class="row text-center text-xs-center text-sm-left text-md-left">
-                <div class="col aligncenter">
-                    <br>
-                    <h4>Payment Option</h4>
-                    <img src="../Images/Website/paytm1.jpg" alt="paytm">
-                    <img src="../Images/Website/cod.jpg" alt="paytm" style="height:37px">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-                    <ul class="list-unstyled list-inline social text-center">
-                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
-                        <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
-                    </ul>
-                </div>
-                </hr>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
-                    <p><u><a href="https://www.agrocraft.com/">AgroNGO</a></u>  is a project Company for farmers and consumers</p>
-                    <p class="h6">All right Reversed.<a class="text-green ml-2" href="https://www.google.com" target="_blank">AgroNGO</a></p>
-                </div>
-                </hr>
-            </div>
-        </div>
+    <script src="../Styles/agronogo-components.js"></script>
 </body>
-
 </html>

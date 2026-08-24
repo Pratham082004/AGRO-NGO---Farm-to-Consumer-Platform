@@ -1,0 +1,2025 @@
+/* ============================================================
+   AgroNGO Design System v2.0
+   A unified, modern CSS foundation for the entire platform.
+   ============================================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+/* ============================================================
+   1. DESIGN TOKENS (CSS Custom Properties)
+   ============================================================ */
+:root {
+    /* --- Color Palette --- */
+    --agro-green-50:  #f0fdf4;
+    --agro-green-100: #dcfce7;
+    --agro-green-200: #bbf7d0;
+    --agro-green-300: #86efac;
+    --agro-green-400: #4ade80;
+    --agro-green-500: #22c55e;
+    --agro-green-600: #16a34a;
+    --agro-green-700: #15803d;
+    --agro-green-800: #166534;
+    --agro-green-900: #14532d;
+
+    --agro-amber-50:  #fffbeb;
+    --agro-amber-100: #fef3c7;
+    --agro-amber-200: #fde68a;
+    --agro-amber-300: #fcd34d;
+    --agro-amber-400: #fbbf24;
+    --agro-amber-500: #f59e0b;
+    --agro-amber-600: #d97706;
+
+    --agro-red-400:   #f87171;
+    --agro-red-500:   #ef4444;
+    --agro-red-600:   #dc2626;
+
+    --agro-blue-400:  #60a5fa;
+    --agro-blue-500:  #3b82f6;
+    --agro-blue-600:  #2563eb;
+
+    /* Semantic Colors */
+    --color-primary:    var(--agro-green-600);
+    --color-primary-hover: var(--agro-green-700);
+    --color-primary-light: var(--agro-green-50);
+    --color-secondary:  var(--agro-amber-500);
+    --color-secondary-hover: var(--agro-amber-600);
+    --color-danger:     var(--agro-red-500);
+    --color-info:       var(--agro-blue-500);
+    --color-success:    var(--agro-green-500);
+
+    /* Neutral Palette */
+    --gray-50:  #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --gray-950: #030712;
+
+    /* Surface & Background */
+    --surface-primary:   #ffffff;
+    --surface-secondary: var(--gray-50);
+    --surface-elevated:  #ffffff;
+    --surface-glass:     rgba(255, 255, 255, 0.72);
+    --surface-glass-border: rgba(255, 255, 255, 0.25);
+    --surface-dark:      var(--gray-900);
+    --surface-dark-elevated: var(--gray-800);
+
+    /* Text */
+    --text-primary:   var(--gray-900);
+    --text-secondary: var(--gray-600);
+    --text-tertiary:  var(--gray-400);
+    --text-inverse:   #ffffff;
+    --text-link:      var(--color-primary);
+
+    /* --- Typography --- */
+    --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Outfit', 'Inter', sans-serif;
+
+    --text-xs:   0.75rem;    /* 12px */
+    --text-sm:   0.875rem;   /* 14px */
+    --text-base: 1rem;       /* 16px */
+    --text-lg:   1.125rem;   /* 18px */
+    --text-xl:   1.25rem;    /* 20px */
+    --text-2xl:  1.5rem;     /* 24px */
+    --text-3xl:  1.875rem;   /* 30px */
+    --text-4xl:  2.25rem;    /* 36px */
+    --text-5xl:  3rem;       /* 48px */
+
+    --leading-tight:  1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+
+    /* --- Spacing --- */
+    --space-1:  0.25rem;   /* 4px */
+    --space-2:  0.5rem;    /* 8px */
+    --space-3:  0.75rem;   /* 12px */
+    --space-4:  1rem;      /* 16px */
+    --space-5:  1.25rem;   /* 20px */
+    --space-6:  1.5rem;    /* 24px */
+    --space-8:  2rem;      /* 32px */
+    --space-10: 2.5rem;    /* 40px */
+    --space-12: 3rem;      /* 48px */
+    --space-16: 4rem;      /* 64px */
+    --space-20: 5rem;      /* 80px */
+
+    /* --- Border Radius --- */
+    --radius-sm:   0.375rem;  /* 6px */
+    --radius-md:   0.5rem;    /* 8px */
+    --radius-lg:   0.75rem;   /* 12px */
+    --radius-xl:   1rem;      /* 16px */
+    --radius-2xl:  1.5rem;    /* 24px */
+    --radius-full: 9999px;
+
+    /* --- Shadows --- */
+    --shadow-xs:    0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm:    0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md:    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg:    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl:    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl:   0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-glow:  0 0 20px rgba(34, 197, 94, 0.3);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+    /* --- Transitions --- */
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+    --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+    --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast:   150ms;
+    --duration-normal: 250ms;
+    --duration-slow:   400ms;
+
+    /* --- Z-Index Scale --- */
+    --z-dropdown: 100;
+    --z-sticky:   200;
+    --z-navbar:   300;
+    --z-modal:    400;
+    --z-toast:    500;
+
+    /* --- Layout --- */
+    --container-max: 1200px;
+    --navbar-height: 70px;
+    --sidebar-width: 260px;
+}
+
+
+/* ============================================================
+   2. CSS RESET & BASE STYLES
+   ============================================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--text-primary);
+    background-color: var(--surface-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--text-link);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-default);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    color: var(--text-primary);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl);  }
+h5 { font-size: var(--text-lg);  }
+h6 { font-size: var(--text-base); }
+
+p {
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+::selection {
+    background: var(--agro-green-200);
+    color: var(--agro-green-900);
+}
+
+
+/* ============================================================
+   3. LAYOUT UTILITIES
+   ============================================================ */
+.agro-container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+}
+
+.agro-section {
+    padding: var(--space-16) 0;
+}
+
+.agro-grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.agro-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.agro-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.agro-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.agro-flex {
+    display: flex;
+    gap: var(--space-4);
+}
+
+.agro-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.agro-flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agro-text-center { text-align: center; }
+.agro-text-right  { text-align: right; }
+
+
+/* ============================================================
+   4. NAVBAR
+   ============================================================ */
+.agro-navbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-navbar);
+    height: var(--navbar-height);
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--surface-glass-border);
+    transition: box-shadow var(--duration-normal) var(--ease-default);
+}
+
+.agro-navbar.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.agro-navbar__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-5);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agro-navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+}
+
+.agro-navbar__brand-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--agro-green-500), var(--agro-green-700));
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: var(--text-xl);
+    font-weight: 800;
+    font-family: var(--font-display);
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+}
+
+.agro-navbar__brand-text {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.agro-navbar__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.agro-navbar__link {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all var(--duration-fast) var(--ease-default);
+    position: relative;
+}
+
+.agro-navbar__link:hover,
+.agro-navbar__link.active {
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.agro-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+/* Mobile hamburger */
+.agro-navbar__toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    transition: background var(--duration-fast) var(--ease-default);
+}
+
+.agro-navbar__toggle:hover {
+    background: var(--gray-100);
+}
+
+.agro-navbar__toggle-icon {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    position: relative;
+    transition: background var(--duration-fast);
+}
+
+.agro-navbar__toggle-icon::before,
+.agro-navbar__toggle-icon::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    left: 0;
+    transition: transform var(--duration-normal) var(--ease-default);
+}
+
+.agro-navbar__toggle-icon::before { top: -7px; }
+.agro-navbar__toggle-icon::after  { top: 7px;  }
+
+/* Mobile menu */
+.agro-navbar__mobile-menu {
+    display: none;
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--surface-primary);
+    padding: var(--space-6);
+    z-index: var(--z-navbar);
+    overflow-y: auto;
+    animation: agro-slideDown var(--duration-normal) var(--ease-out);
+}
+
+.agro-navbar__mobile-menu.open {
+    display: block;
+}
+
+.agro-navbar__mobile-link {
+    display: block;
+    padding: var(--space-4) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: all var(--duration-fast) var(--ease-default);
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.agro-navbar__mobile-link:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* User avatar in navbar */
+.agro-navbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--agro-green-400), var(--agro-green-600));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--duration-fast) var(--ease-bounce);
+}
+
+.agro-navbar__avatar:hover {
+    transform: scale(1.08);
+}
+
+/* Cart badge */
+.agro-navbar__cart {
+    position: relative;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    transition: all var(--duration-fast);
+    cursor: pointer;
+}
+
+.agro-navbar__cart:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.agro-navbar__cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--color-danger);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(4px, -4px);
+    animation: agro-pulse 2s infinite;
+}
+
+
+/* ============================================================
+   5. BUTTONS
+   ============================================================ */
+.agro-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all var(--duration-normal) var(--ease-default);
+    text-decoration: none;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.agro-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(255,255,255,0.15), transparent);
+    opacity: 0;
+    transition: opacity var(--duration-fast);
+}
+
+.agro-btn:hover::after {
+    opacity: 1;
+}
+
+.agro-btn:active {
+    transform: scale(0.97);
+}
+
+/* Primary */
+.agro-btn--primary {
+    background: linear-gradient(135deg, var(--agro-green-500), var(--agro-green-600));
+    color: white;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+}
+
+.agro-btn--primary:hover {
+    background: linear-gradient(135deg, var(--agro-green-600), var(--agro-green-700));
+    box-shadow: 0 4px 16px rgba(22, 163, 74, 0.4);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Secondary */
+.agro-btn--secondary {
+    background: linear-gradient(135deg, var(--agro-amber-400), var(--agro-amber-500));
+    color: var(--gray-900);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.agro-btn--secondary:hover {
+    background: linear-gradient(135deg, var(--agro-amber-500), var(--agro-amber-600));
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+    color: var(--gray-900);
+    transform: translateY(-1px);
+}
+
+/* Outline */
+.agro-btn--outline {
+    background: transparent;
+    border-color: var(--gray-300);
+    color: var(--text-primary);
+}
+
+.agro-btn--outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+/* Ghost */
+.agro-btn--ghost {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.agro-btn--ghost:hover {
+    background: var(--gray-100);
+    color: var(--text-primary);
+}
+
+/* Danger */
+.agro-btn--danger {
+    background: linear-gradient(135deg, var(--agro-red-400), var(--agro-red-500));
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.agro-btn--danger:hover {
+    background: linear-gradient(135deg, var(--agro-red-500), var(--agro-red-600));
+    color: white;
+}
+
+/* Sizes */
+.agro-btn--sm {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    border-radius: var(--radius-md);
+}
+
+.agro-btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+    border-radius: var(--radius-xl);
+}
+
+.agro-btn--xl {
+    padding: var(--space-5) var(--space-10);
+    font-size: var(--text-lg);
+    border-radius: var(--radius-xl);
+}
+
+.agro-btn--full {
+    width: 100%;
+}
+
+/* Icon button */
+.agro-btn--icon {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+}
+
+
+/* ============================================================
+   6. CARDS
+   ============================================================ */
+.agro-card {
+    background: var(--surface-elevated);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-default);
+}
+
+.agro-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: var(--gray-300);
+}
+
+.agro-card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-default);
+}
+
+.agro-card:hover .agro-card__image {
+    transform: scale(1.05);
+}
+
+.agro-card__image-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.agro-card__body {
+    padding: var(--space-5);
+}
+
+.agro-card__title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+}
+
+.agro-card__subtitle {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.agro-card__footer {
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Glass Card */
+.agro-card--glass {
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--surface-glass-border);
+}
+
+/* Stat Card */
+.agro-stat-card {
+    background: var(--surface-elevated);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    border: 1px solid var(--gray-200);
+    transition: all var(--duration-normal) var(--ease-default);
+}
+
+.agro-stat-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.agro-stat-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+}
+
+.agro-stat-card__icon--green {
+    background: var(--agro-green-100);
+    color: var(--agro-green-600);
+}
+
+.agro-stat-card__icon--amber {
+    background: var(--agro-amber-100);
+    color: var(--agro-amber-600);
+}
+
+.agro-stat-card__icon--blue {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--agro-blue-600);
+}
+
+.agro-stat-card__icon--red {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--agro-red-600);
+}
+
+.agro-stat-card__value {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: var(--space-1);
+}
+
+.agro-stat-card__label {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   7. FORMS
+   ============================================================ */
+.agro-form-group {
+    margin-bottom: var(--space-5);
+}
+
+.agro-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.agro-input,
+.agro-select,
+.agro-textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface-primary);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    transition: all var(--duration-fast) var(--ease-default);
+    outline: none;
+}
+
+.agro-input:focus,
+.agro-select:focus,
+.agro-textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+.agro-input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.agro-input--error {
+    border-color: var(--color-danger);
+}
+
+.agro-input--error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.agro-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.agro-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    padding-right: var(--space-10);
+}
+
+/* Floating Label */
+.agro-float-group {
+    position: relative;
+    margin-bottom: var(--space-6);
+}
+
+.agro-float-group .agro-input {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-2);
+}
+
+.agro-float-label {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--text-base);
+    color: var(--text-tertiary);
+    pointer-events: none;
+    transition: all var(--duration-fast) var(--ease-default);
+}
+
+.agro-float-group .agro-input:focus ~ .agro-float-label,
+.agro-float-group .agro-input:not(:placeholder-shown) ~ .agro-float-label {
+    top: var(--space-2);
+    transform: translateY(0);
+    font-size: var(--text-xs);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* Checkbox & Radio */
+.agro-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+}
+
+.agro-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   8. BADGES & TAGS
+   ============================================================ */
+.agro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.agro-badge--green {
+    background: var(--agro-green-100);
+    color: var(--agro-green-700);
+}
+
+.agro-badge--amber {
+    background: var(--agro-amber-100);
+    color: var(--agro-amber-600);
+}
+
+.agro-badge--red {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--agro-red-600);
+}
+
+.agro-badge--blue {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--agro-blue-600);
+}
+
+.agro-badge--gray {
+    background: var(--gray-100);
+    color: var(--gray-600);
+}
+
+/* Dot indicator */
+.agro-badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: currentColor;
+}
+
+
+/* ============================================================
+   9. TABLES
+   ============================================================ */
+.agro-table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    background: var(--surface-elevated);
+}
+
+.agro-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.agro-table th {
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    font-weight: 600;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.agro-table td {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+
+.agro-table tr:last-child td {
+    border-bottom: none;
+}
+
+.agro-table tr:hover td {
+    background: var(--gray-50);
+}
+
+
+/* ============================================================
+   10. FOOTER
+   ============================================================ */
+.agro-footer {
+    background: var(--gray-900);
+    color: var(--gray-300);
+    padding: var(--space-16) 0 var(--space-8);
+    margin-top: auto;
+}
+
+.agro-footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-10);
+    margin-bottom: var(--space-12);
+}
+
+.agro-footer__brand {
+    margin-bottom: var(--space-4);
+}
+
+.agro-footer__brand-name {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--space-3);
+}
+
+.agro-footer__desc {
+    font-size: var(--text-sm);
+    color: var(--gray-400);
+    line-height: var(--leading-relaxed);
+    max-width: 300px;
+}
+
+.agro-footer__title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-5);
+}
+
+.agro-footer__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.agro-footer__link {
+    font-size: var(--text-sm);
+    color: var(--gray-400);
+    transition: color var(--duration-fast);
+}
+
+.agro-footer__link:hover {
+    color: var(--agro-green-400);
+}
+
+.agro-footer__social {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+}
+
+.agro-footer__social-link {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--gray-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-400);
+    font-size: var(--text-lg);
+    transition: all var(--duration-fast);
+}
+
+.agro-footer__social-link:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.agro-footer__bottom {
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--gray-800);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--gray-500);
+}
+
+.agro-footer__payment {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.agro-footer__payment img {
+    height: 28px;
+    opacity: 0.6;
+    transition: opacity var(--duration-fast);
+}
+
+.agro-footer__payment img:hover {
+    opacity: 1;
+}
+
+
+/* ============================================================
+   11. HERO SECTION
+   ============================================================ */
+.agro-hero {
+    position: relative;
+    padding: var(--space-20) 0;
+    background: linear-gradient(135deg, var(--agro-green-800) 0%, var(--agro-green-900) 40%, var(--gray-900) 100%);
+    color: white;
+    overflow: hidden;
+}
+
+.agro-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(34, 197, 94, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.agro-hero__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.agro-hero__title {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    font-weight: 800;
+    color: white;
+    margin-bottom: var(--space-6);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.agro-hero__title span {
+    background: linear-gradient(135deg, var(--agro-green-300), var(--agro-amber-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.agro-hero__subtitle {
+    font-size: var(--text-lg);
+    color: var(--gray-300);
+    margin-bottom: var(--space-8);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: var(--leading-relaxed);
+}
+
+.agro-hero__actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Floating particles in hero */
+.agro-hero__particle {
+    position: absolute;
+    border-radius: var(--radius-full);
+    opacity: 0.15;
+    animation: agro-float 6s ease-in-out infinite;
+}
+
+
+/* ============================================================
+   12. SECTION HEADERS
+   ============================================================ */
+.agro-section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.agro-section-header__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-4);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-4);
+}
+
+.agro-section-header__title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+}
+
+.agro-section-header__desc {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   13. AUTH PAGES (Login / Register / Forgot)
+   ============================================================ */
+.agro-auth {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #052010 0%, #0d381e 40%, #111827 100%);
+    padding: var(--space-8);
+    position: relative;
+    overflow: hidden;
+}
+
+.agro-auth::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+}
+
+.agro-auth::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
+    pointer-events: none;
+}
+
+.agro-auth__card {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(17, 24, 39, 0.88);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-10);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(34, 197, 94, 0.12);
+    animation: agro-fadeInUp var(--duration-slow) var(--ease-out);
+}
+
+.agro-auth__logo {
+    text-align: center;
+    margin-bottom: var(--space-6);
+}
+
+.agro-auth__logo-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--agro-green-500), var(--agro-green-700));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    font-size: var(--text-2xl);
+    color: white;
+    font-weight: 800;
+    font-family: var(--font-display);
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+}
+
+.agro-auth__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.01em;
+}
+
+.agro-auth__subtitle {
+    font-size: var(--text-sm);
+    color: #9ca3af;
+    text-align: center;
+    margin-bottom: var(--space-8);
+}
+
+.agro-auth__card .agro-label {
+    color: #e5e7eb;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2);
+}
+
+.agro-auth__card .agro-input,
+.agro-auth__card .agro-select,
+.agro-auth__card .agro-textarea {
+    background: rgba(31, 41, 55, 0.8);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: var(--text-base);
+    font-weight: 500;
+}
+
+.agro-auth__card .agro-input::placeholder,
+.agro-auth__card .agro-textarea::placeholder {
+    color: #6b7280;
+}
+
+.agro-auth__card .agro-input:focus,
+.agro-auth__card .agro-select:focus,
+.agro-auth__card .agro-textarea:focus {
+    border-color: var(--agro-green-400);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    background: rgba(31, 41, 55, 0.95);
+}
+
+.agro-auth__card select option {
+    background-color: #111827;
+    color: #ffffff;
+}
+
+.agro-auth__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    color: #9ca3af;
+}
+
+.agro-auth__links a {
+    color: var(--agro-green-400);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.agro-auth__links a:hover {
+    color: var(--agro-green-300);
+    text-decoration: underline;
+}
+
+.agro-auth__divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    color: #6b7280;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.agro-auth__divider::before,
+.agro-auth__divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ============================================================
+   14. PRODUCT GRID
+   ============================================================ */
+.agro-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-6);
+}
+
+.agro-product-card {
+    background: var(--surface-elevated);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-default);
+    position: relative;
+}
+
+.agro-product-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-6px);
+    border-color: transparent;
+}
+
+.agro-product-card__image-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    background: var(--gray-100);
+}
+
+.agro-product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-default);
+}
+
+.agro-product-card:hover .agro-product-card__image {
+    transform: scale(1.08);
+}
+
+.agro-product-card__badge {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 1;
+}
+
+.agro-product-card__body {
+    padding: var(--space-5);
+}
+
+.agro-product-card__category {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+}
+
+.agro-product-card__name {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+    line-height: var(--leading-tight);
+}
+
+.agro-product-card__farmer {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-4);
+}
+
+.agro-product-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agro-product-card__price {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.agro-product-card__price-unit {
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--text-tertiary);
+}
+
+.agro-product-card__action {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-lg);
+    transition: all var(--duration-fast) var(--ease-default);
+}
+
+.agro-product-card__action:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+
+/* ============================================================
+   15. DROPDOWN MENU
+   ============================================================ */
+.agro-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.agro-dropdown__menu {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    min-width: 200px;
+    background: var(--surface-elevated);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-2);
+    z-index: var(--z-dropdown);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all var(--duration-fast) var(--ease-default);
+}
+
+.agro-dropdown.open .agro-dropdown__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.agro-dropdown__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    transition: all var(--duration-fast);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.agro-dropdown__item:hover {
+    background: var(--gray-100);
+    color: var(--color-primary);
+}
+
+.agro-dropdown__divider {
+    height: 1px;
+    background: var(--gray-100);
+    margin: var(--space-2) 0;
+}
+
+
+/* ============================================================
+   16. TOAST / NOTIFICATION
+   ============================================================ */
+.agro-toast-container {
+    position: fixed;
+    top: var(--space-5);
+    right: var(--space-5);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.agro-toast {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface-elevated);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border-left: 4px solid var(--color-primary);
+    min-width: 320px;
+    animation: agro-slideInRight var(--duration-normal) var(--ease-out);
+}
+
+.agro-toast--success { border-left-color: var(--color-success); }
+.agro-toast--error   { border-left-color: var(--color-danger); }
+.agro-toast--warning { border-left-color: var(--color-secondary); }
+.agro-toast--info    { border-left-color: var(--color-info); }
+
+.agro-toast__message {
+    flex: 1;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.agro-toast__close {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    font-size: var(--text-lg);
+    padding: var(--space-1);
+}
+
+
+/* ============================================================
+   17. EMPTY STATE
+   ============================================================ */
+.agro-empty {
+    text-align: center;
+    padding: var(--space-16) var(--space-8);
+}
+
+.agro-empty__icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-5);
+    opacity: 0.3;
+}
+
+.agro-empty__title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+}
+
+.agro-empty__desc {
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0 auto var(--space-6);
+}
+
+
+/* ============================================================
+   18. SEARCH BAR
+   ============================================================ */
+.agro-search {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+}
+
+.agro-search__icon {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    font-size: var(--text-lg);
+    pointer-events: none;
+}
+
+.agro-search__input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4) var(--space-3) var(--space-10);
+    background: var(--gray-100);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-full);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    transition: all var(--duration-fast) var(--ease-default);
+    outline: none;
+}
+
+.agro-search__input:focus {
+    background: var(--surface-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+.agro-search__input::placeholder {
+    color: var(--text-tertiary);
+}
+
+
+/* ============================================================
+   19. CATEGORY PILLS / CHIPS
+   ============================================================ */
+.agro-pills {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    padding: var(--space-2) 0;
+}
+
+.agro-pill {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--gray-100);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-default);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.agro-pill:hover,
+.agro-pill.active {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-color: var(--agro-green-200);
+}
+
+
+/* ============================================================
+   20. PAGE HEADER (for portal inner pages)
+   ============================================================ */
+.agro-page-header {
+    padding: var(--space-8) 0 var(--space-6);
+}
+
+.agro-page-header__title {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+}
+
+.agro-page-header__desc {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+}
+
+.agro-page-header__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-4);
+}
+
+.agro-page-header__breadcrumb a {
+    color: var(--text-tertiary);
+}
+
+.agro-page-header__breadcrumb a:hover {
+    color: var(--color-primary);
+}
+
+
+/* ============================================================
+   21. PROFILE CARD
+   ============================================================ */
+.agro-profile {
+    background: var(--surface-elevated);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+}
+
+.agro-profile__header {
+    background: linear-gradient(135deg, var(--agro-green-600), var(--agro-green-800));
+    padding: var(--space-10) var(--space-8) var(--space-16);
+    position: relative;
+}
+
+.agro-profile__avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radius-full);
+    background: white;
+    border: 4px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--agro-green-600);
+    font-family: var(--font-display);
+    position: absolute;
+    bottom: -50px;
+    left: var(--space-8);
+    box-shadow: var(--shadow-lg);
+}
+
+.agro-profile__body {
+    padding: var(--space-16) var(--space-8) var(--space-8);
+}
+
+.agro-profile__name {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-1);
+}
+
+.agro-profile__role {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+}
+
+.agro-profile__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--gray-50);
+    border-radius: var(--radius-xl);
+}
+
+.agro-profile__stat {
+    text-align: center;
+}
+
+.agro-profile__stat-value {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.agro-profile__stat-label {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   22. ANIMATIONS & KEYFRAMES
+   ============================================================ */
+@keyframes agro-fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes agro-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes agro-fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes agro-slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes agro-slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes agro-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.6; }
+}
+
+@keyframes agro-float {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-20px); }
+}
+
+@keyframes agro-shimmer {
+    0%   { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+}
+
+@keyframes agro-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Animation utilities */
+.agro-animate-fadeIn    { animation: agro-fadeIn var(--duration-normal) var(--ease-out); }
+.agro-animate-fadeInUp  { animation: agro-fadeInUp var(--duration-slow) var(--ease-out); }
+.agro-animate-slideDown { animation: agro-slideDown var(--duration-normal) var(--ease-out); }
+
+/* Staggered animation delays */
+.agro-delay-1 { animation-delay: 100ms; animation-fill-mode: backwards; }
+.agro-delay-2 { animation-delay: 200ms; animation-fill-mode: backwards; }
+.agro-delay-3 { animation-delay: 300ms; animation-fill-mode: backwards; }
+.agro-delay-4 { animation-delay: 400ms; animation-fill-mode: backwards; }
+.agro-delay-5 { animation-delay: 500ms; animation-fill-mode: backwards; }
+
+/* Scroll reveal (JS toggles .visible) */
+.agro-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s var(--ease-out);
+}
+
+.agro-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   23. LOADING / SKELETON
+   ============================================================ */
+.agro-skeleton {
+    background: linear-gradient(90deg, var(--gray-200) 0px, var(--gray-100) 40px, var(--gray-200) 80px);
+    background-size: 200px 100%;
+    animation: agro-shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+
+.agro-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--gray-200);
+    border-top-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    animation: agro-spin 0.8s linear infinite;
+}
+
+
+/* ============================================================
+   24. RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    :root {
+        --text-5xl: 2.5rem;
+        --text-4xl: 2rem;
+        --text-3xl: 1.5rem;
+    }
+
+    .agro-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .agro-grid-3 { grid-template-columns: repeat(2, 1fr); }
+
+    .agro-footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    :root {
+        --text-5xl: 2rem;
+        --text-4xl: 1.75rem;
+        --text-3xl: 1.375rem;
+        --navbar-height: 60px;
+    }
+
+    .agro-navbar__links {
+        display: none;
+    }
+
+    .agro-navbar__toggle {
+        display: flex;
+    }
+
+    .agro-grid-2,
+    .agro-grid-3,
+    .agro-grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .agro-product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+    }
+
+    .agro-hero {
+        padding: var(--space-12) 0;
+    }
+
+    .agro-hero__actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .agro-footer__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+
+    .agro-footer__bottom {
+        flex-direction: column;
+        gap: var(--space-4);
+        text-align: center;
+    }
+
+    .agro-auth__card {
+        padding: var(--space-6);
+    }
+
+    .agro-profile__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .agro-section {
+        padding: var(--space-10) 0;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .agro-product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .agro-container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+}
+
+
+/* ============================================================
+   25. UTILITY CLASSES
+   ============================================================ */
+.agro-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.agro-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.agro-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: var(--space-6) 0;
+}
+
+/* Spacing utilities */
+.agro-mt-0 { margin-top: 0; }
+.agro-mt-4 { margin-top: var(--space-4); }
+.agro-mt-6 { margin-top: var(--space-6); }
+.agro-mt-8 { margin-top: var(--space-8); }
+.agro-mb-0 { margin-bottom: 0; }
+.agro-mb-4 { margin-bottom: var(--space-4); }
+.agro-mb-6 { margin-bottom: var(--space-6); }
+.agro-mb-8 { margin-bottom: var(--space-8); }
+.agro-p-4  { padding: var(--space-4); }
+.agro-p-6  { padding: var(--space-6); }
+.agro-p-8  { padding: var(--space-8); }
+.agro-gap-4 { gap: var(--space-4); }
+.agro-gap-6 { gap: var(--space-6); }

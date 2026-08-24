@@ -1,252 +1,230 @@
 <?php
 session_start();
+error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
+
+if(strlen($_SESSION['alogin'])==0) {	
+    header('location:index.php');
+    exit;
 }
-else{
+
+// Fetch Stats
+$farmer_cnt = $dbh->query("SELECT COUNT(*) FROM farmerregistration")->fetchColumn();
+$buyer_cnt  = $dbh->query("SELECT COUNT(*) FROM buyerregistration")->fetchColumn();
+$product_cnt = $dbh->query("SELECT COUNT(*) FROM products")->fetchColumn();
+$order_cnt  = $dbh->query("SELECT COUNT(*) FROM orders")->fetchColumn();
 ?>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>TMS | Admin Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-<!-- Custom CSS -->
-<link href="css/style.css" rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="css/morris.css" type="text/css"/>
-<!-- Graph CSS -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- jQuery -->
-<script src="js/jquery-2.1.4.min.js"></script>
-<!-- //jQuery -->
-<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
-<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<!-- lined-icons -->
-<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
-<!-- //lined-icons -->
-</head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — AgroNGO Admin</title>
+    <link rel="stylesheet" href="../Styles/agronogo-design.css?v=2">
+    <link rel="stylesheet" href="css/admin-modern.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
 <body>
-   <div class="page-container">
-   <!--/content-inner-->
-<div class="left-content">
-	   <div class="mother-grid-inner">
-<!--header start here-->
-<?php include('includes/header.php');?>
-<!--header end here-->
-		<ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a> <i class="fa fa-angle-right"></i></li>
-            </ol>
-<!--four-grids here-->
-		<div class="four-grids">
-					<div class="col-md-3 four-grid">
-						<div class="four-agileits">
-							<div class="icon">
-								<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>User</h3>
 
-								<?php $sql = "SELECT id from tblusers";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=$query->rowCount();
-					?>			<h4> <?php echo htmlentities($cnt);?> </h4>
-				
-								
-							</div>
-							
-						</div>
-					</div>
-					<div class="col-md-3 four-grid">
-						<div class="four-agileinfo">
-							<div class="icon">
-								<i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>Bookings</h3>
-										<?php $sql1 = "SELECT BookingId from tblbooking";
-$query1 = $dbh -> prepare($sql1);
-$query1->execute();
-$results1=$query1->fetchAll(PDO::FETCH_OBJ);
-$cnt1=$query1->rowCount();
-					?>
-								<h4><?php echo htmlentities($cnt1);?></h4>
+<div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+            <div class="admin-sidebar__brand-icon">🌾</div>
+            <span class="admin-sidebar__brand-text">AgroNGO Admin</span>
+        </div>
 
-							</div>
-							
-						</div>
-					</div>
-					<div class="col-md-3 four-grid">
-						<div class="four-w3ls">
-							<div class="icon">
-								<i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>Enquiries</h3>
-												<?php $sql2 = "SELECT id from tblenquiry";
-$query2= $dbh -> prepare($sql2);
-$query2->execute();
-$results2=$query2->fetchAll(PDO::FETCH_OBJ);
-$cnt2=$query2->rowCount();
-					?>
-								<h4><?php echo htmlentities($cnt2);?></h4>
-								
-							</div>
-							
-						</div>
-					</div>
-					<div class="col-md-3 four-grid">
-						<div class="four-wthree">
-							<div class="icon">
-								<i class="glyphicon glyphicon-briefcase" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>Total packages</h3>
-																	<?php $sql3 = "SELECT PackageId from tbltourpackages";
-$query3= $dbh -> prepare($sql3);
-$query3->execute();
-$results3=$query3->fetchAll(PDO::FETCH_OBJ);
-$cnt3=$query3->rowCount();
-					?>
-								<h4><?php echo htmlentities($cnt3);?></h4>
-								
-							</div>
-							
-						</div>
-					</div>
-						<div class="clearfix"></div>
-				</div>
+        <div class="admin-sidebar__menu">
+            <div class="admin-sidebar__label">Main Menu</div>
+            <a href="dashboard.php" class="admin-sidebar__link active">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </a>
+            <a href="manage-users.php" class="admin-sidebar__link">
+                <i class="fas fa-users"></i> Manage Users
+            </a>
+            <a href="manage-products.php" class="admin-sidebar__link">
+                <i class="fas fa-wheat-awn"></i> Manage Products
+            </a>
+            <a href="manage-orders.php" class="admin-sidebar__link">
+                <i class="fas fa-shopping-cart"></i> Manage Orders
+            </a>
 
-		<div class="four-grids">
-					<div class="col-md-3 four-grid">
-						<div class="four-w3ls">
-							<div class="icon">
-								<i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>Issues Riaised</h3>
-												<?php $sql5 = "SELECT id from tblissues";
-$query5= $dbh -> prepare($sql5);
-$query5->execute();
-$results5=$query5->fetchAll(PDO::FETCH_OBJ);
-$cnt5=$query5->rowCount();
-					?>
-								<h4><?php echo htmlentities($cnt5);?></h4>
-								
-							</div>
-							
-						</div>
-					</div>
+            <div class="admin-sidebar__label">AI & Automation</div>
+            <a href="runml.php" class="admin-sidebar__link">
+                <i class="fas fa-robot"></i> AI Expiry Audit
+            </a>
 
+            <div class="admin-sidebar__label">Account</div>
+            <a href="change-password.php" class="admin-sidebar__link">
+                <i class="fas fa-lock"></i> Change Password
+            </a>
+            <a href="logout.php" class="admin-sidebar__link" style="color: var(--agro-red-500);">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+        </div>
+    </aside>
 
-					<div class="clearfix"></div>
-				</div>
-<!--//four-grids here-->
+    <!-- Main Content Area -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="admin-topbar__title">Dashboard Overview</div>
+            <div class="admin-topbar__user">
+                <div class="admin-topbar__avatar">A</div>
+                <div>
+                    <div style="font-weight: 600; font-size: 14px; color: #0f172a;"><?php echo htmlspecialchars($_SESSION['alogin']); ?></div>
+                    <div style="font-size: 12px; color: #64748b;">System Administrator</div>
+                </div>
+            </div>
+        </header>
 
+        <!-- Content Body -->
+        <div class="admin-content">
+            
+            <!-- Welcome Banner -->
+            <div class="agro-card agro-card--glass" style="padding: 24px 32px; background: linear-gradient(135deg, #166534, #15803d); color: white; border: none; margin-bottom: 28px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h2 style="color: white; font-size: 24px; margin-bottom: 6px;">Welcome back, Administrator! 👋</h2>
+                        <p style="color: #bbf7d0; font-size: 14px; margin: 0;">Monitor marketplace activity, manage crop listings, and trigger automated AI shelf-life audits.</p>
+                    </div>
+                    <a href="runml.php" class="agro-btn agro-btn--secondary agro-btn--lg" style="box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
+                        <i class="fas fa-robot"></i> Launch AI Expiry Engine
+                    </a>
+                </div>
+            </div>
 
-<div class="inner-block">
+            <!-- Stat Cards Grid -->
+            <div class="agro-grid agro-grid-4" style="margin-bottom: 32px;">
+                <!-- Farmers -->
+                <div class="agro-stat-card">
+                    <div class="agro-stat-card__icon agro-stat-card__icon--green">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <div class="agro-stat-card__value"><?php echo number_format($farmer_cnt); ?></div>
+                    <div class="agro-stat-card__label">Registered Farmers</div>
+                    <div style="margin-top: 12px;">
+                        <a href="manage-users.php" style="font-size: 12px; font-weight: 600; color: var(--agro-green-600);">View Farmers <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
 
+                <!-- Buyers -->
+                <div class="agro-stat-card">
+                    <div class="agro-stat-card__icon agro-stat-card__icon--blue">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="agro-stat-card__value"><?php echo number_format($buyer_cnt); ?></div>
+                    <div class="agro-stat-card__label">Registered Buyers</div>
+                    <div style="margin-top: 12px;">
+                        <a href="manage-users.php" style="font-size: 12px; font-weight: 600; color: var(--agro-blue-600);">View Buyers <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div class="agro-stat-card">
+                    <div class="agro-stat-card__icon agro-stat-card__icon--amber">
+                        <i class="fas fa-wheat-awn"></i>
+                    </div>
+                    <div class="agro-stat-card__value"><?php echo number_format($product_cnt); ?></div>
+                    <div class="agro-stat-card__label">Active Crops Listed</div>
+                    <div style="margin-top: 12px;">
+                        <a href="manage-products.php" style="font-size: 12px; font-weight: 600; color: var(--agro-amber-600);">Browse Produce <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Orders -->
+                <div class="agro-stat-card">
+                    <div class="agro-stat-card__icon agro-stat-card__icon--green" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="agro-stat-card__value"><?php echo number_format($order_cnt); ?></div>
+                    <div class="agro-stat-card__label">Marketplace Orders</div>
+                    <div style="margin-top: 12px;">
+                        <a href="manage-orders.php" style="font-size: 12px; font-weight: 600; color: #9333ea;">Track Orders <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Products & Recent Orders Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <!-- Recent Products Card -->
+                <div class="admin-card">
+                    <div class="admin-card__header">
+                        <div class="admin-card__title">
+                            <i class="fas fa-leaf" style="color: #22c55e;"></i> Recent Produce Listings
+                        </div>
+                        <a href="manage-products.php" class="agro-btn agro-btn--ghost agro-btn--sm">View All</a>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Expiry</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+<?php
+$query_p = $dbh->query("SELECT product_title, product_price, product_stock, product_expiry FROM products ORDER BY product_id DESC LIMIT 5");
+$rec_products = $query_p->fetchAll(PDO::FETCH_OBJ);
+if($query_p->rowCount() > 0) {
+    foreach($rec_products as $p) {
+?>
+                            <tr>
+                                <td><strong><?php echo htmlentities($p->product_title); ?></strong></td>
+                                <td><span class="admin-badge admin-badge--green">₹<?php echo htmlentities($p->product_price); ?></span></td>
+                                <td><?php echo htmlentities($p->product_stock); ?> kg</td>
+                                <td><code><?php echo htmlentities($p->product_expiry); ?></code></td>
+                            </tr>
+<?php } } else { ?>
+                            <tr><td colspan="4" class="agro-text-center">No recent produce listings.</td></tr>
+<?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recent Orders Card -->
+                <div class="admin-card">
+                    <div class="admin-card__header">
+                        <div class="admin-card__title">
+                            <i class="fas fa-shopping-cart" style="color: #3b82f6;"></i> Recent Orders
+                        </div>
+                        <a href="manage-orders.php" class="agro-btn agro-btn--ghost agro-btn--sm">View All</a>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Buyer Phone</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+<?php
+$query_o = $dbh->query("SELECT order_id, buyer_phonenumber, total, payment FROM orders ORDER BY order_id DESC LIMIT 5");
+$rec_orders = $query_o->fetchAll(PDO::FETCH_OBJ);
+if($query_o->rowCount() > 0) {
+    foreach($rec_orders as $o) {
+?>
+                            <tr>
+                                <td><strong>#ORD-<?php echo htmlentities($o->order_id); ?></strong></td>
+                                <td><?php echo htmlentities($o->buyer_phonenumber); ?></td>
+                                <td><strong>₹<?php echo htmlentities($o->total); ?></strong></td>
+                                <td><span class="admin-badge admin-badge--blue"><?php echo htmlentities($o->payment ? $o->payment : 'COD'); ?></span></td>
+                            </tr>
+<?php } } else { ?>
+                            <tr><td colspan="4" class="agro-text-center">No recent orders.</td></tr>
+<?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
 </div>
-<!--inner block end here-->
-<!--copy rights start here-->
-<?php include('includes/footer.php');?>
-</div>
-</div>
 
-			<!--/sidebar-menu-->
-				<?php include('includes/sidebarmenu.php');?>
-							  <div class="clearfix"></div>		
-							</div>
-							<script>
-							var toggle = true;
-										
-							$(".sidebar-icon").click(function() {                
-							  if (toggle)
-							  {
-								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
-								$("#menu span").css({"position":"absolute"});
-							  }
-							  else
-							  {
-								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-								setTimeout(function() {
-								  $("#menu span").css({"position":"relative"});
-								}, 400);
-							  }
-											
-											toggle = !toggle;
-										});
-							</script>
-<!--js -->
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
-<!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.min.js"></script>
-   <!-- /Bootstrap Core JavaScript -->	   
-<!-- morris JavaScript -->	
-<script src="js/raphael-min.js"></script>
-<script src="js/morris.js"></script>
-<script>
-	$(document).ready(function() {
-		//BOX BUTTON SHOW AND CLOSE
-	   jQuery('.small-graph-box').hover(function() {
-		  jQuery(this).find('.box-button').fadeIn('fast');
-	   }, function() {
-		  jQuery(this).find('.box-button').fadeOut('fast');
-	   });
-	   jQuery('.small-graph-box .box-close').click(function() {
-		  jQuery(this).closest('.small-graph-box').fadeOut(200);
-		  return false;
-	   });
-	   
-	    //CHARTS
-	    function gd(year, day, month) {
-			return new Date(year, month - 1, day).getTime();
-		}
-		
-		graphArea2 = Morris.Area({
-			element: 'hero-area',
-			padding: 10,
-        behaveLikeLine: true,
-        gridEnabled: false,
-        gridLineColor: '#dddddd',
-        axes: true,
-        resize: true,
-        smooth:true,
-        pointSize: 0,
-        lineWidth: 0,
-        fillOpacity:0.85,
-			data: [
-				{period: '2014 Q1', iphone: 2668, ipad: null, itouch: 2649},
-				{period: '2014 Q2', iphone: 15780, ipad: 13799, itouch: 12051},
-				{period: '2014 Q3', iphone: 12920, ipad: 10975, itouch: 9910},
-				{period: '2014 Q4', iphone: 8770, ipad: 6600, itouch: 6695},
-				{period: '2015 Q1', iphone: 10820, ipad: 10924, itouch: 12300},
-				{period: '2015 Q2', iphone: 9680, ipad: 9010, itouch: 7891},
-				{period: '2015 Q3', iphone: 4830, ipad: 3805, itouch: 1598},
-				{period: '2015 Q4', iphone: 15083, ipad: 8977, itouch: 5185},
-				{period: '2016 Q1', iphone: 10697, ipad: 4470, itouch: 2038},
-				{period: '2016 Q2', iphone: 8442, ipad: 5723, itouch: 1801}
-			],
-			lineColors:['#ff4a43','#a2d200','#22beef'],
-			xkey: 'period',
-            redraw: true,
-            ykeys: ['iphone', 'ipad', 'itouch'],
-            labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
-			pointSize: 2,
-			hideHover: 'auto',
-			resize: true
-		});
-		
-	   
-	});
-	</script>
 </body>
 </html>
-<?php } ?>

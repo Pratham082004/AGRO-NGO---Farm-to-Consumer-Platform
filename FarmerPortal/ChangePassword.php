@@ -1,15 +1,17 @@
 <?php
-
-include("../Includes/db.php");
-session_start();
-$sessphonenumber = $_SESSION['phonenumber'];
-$sql = "select * from farmerregistration where farmer_phone = $sessphonenumber";
-$run_query = mysqli_query($con, $sql);
-while ($row = mysqli_fetch_array($run_query)) {
-    $password = $row['farmer_password'];
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
-
-
+include("../Includes/db.php");
+$sessphonenumber = $_SESSION['phonenumber'] ?? null;
+$password = '';
+if ($sessphonenumber) {
+    $sql = "select * from farmerregistration where farmer_phone = '$sessphonenumber'";
+    $run_query = mysqli_query($con, $sql);
+    if ($run_query && $row = mysqli_fetch_array($run_query)) {
+        $password = $row['farmer_password'];
+    }
+}
 ?>
 
 <!DOCTYPE html>

@@ -19,55 +19,29 @@ while (ob_get_level() > 0) ob_end_flush();
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Run ML Model</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <title>AI Expiry Console — AgroNGO Admin</title>
+    <link rel="stylesheet" href="../Styles/agronogo-design.css?v=2">
+    <link rel="stylesheet" href="css/admin-modern.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header, footer {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        header h1, footer p {
-            margin: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto 60px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        h3 {
-            color: #007bff;
-            margin-bottom: 15px;
-        }
         .console-box {
-            background: #fefefe;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            height: 500px;
+            background: #0f172a;
+            color: #38bdf8;
+            border-radius: 12px;
+            padding: 24px;
+            height: 480px;
             overflow-y: auto;
             white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
-            line-height: 1.5;
-            box-shadow: inset 0 0 8px #ddd;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+            border: 1px solid #1e293b;
         }
         .loader {
-            margin-bottom: 20px;
-            color: #007bff;
-            font-weight: bold;
+            margin-bottom: 16px;
+            color: #22c55e;
+            font-weight: 700;
             animation: blink 1s infinite;
         }
         @keyframes blink {
@@ -75,36 +49,104 @@ while (ob_get_level() > 0) ob_end_flush();
             50% { opacity: 0.4; }
             100% { opacity: 1; }
         }
-        .glow {
-            text-shadow: 0 0 3px #ccc;
-        }
-        a.btn-primary {
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>AgroNGO - Machine Learning Console</h1>
-</header>
+<div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+            <div class="admin-sidebar__brand-icon">🌾</div>
+            <span class="admin-sidebar__brand-text">AgroNGO Admin</span>
+        </div>
 
-<div class="container">
-    <div class="loader glow" id="loader">
-        <i class="fas fa-envelope"></i> Sending Mails <span id="dots">.</span>
-    </div>
+        <div class="admin-sidebar__menu">
+            <div class="admin-sidebar__label">Main Menu</div>
+            <a href="dashboard.php" class="admin-sidebar__link">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </a>
+            <a href="manage-users.php" class="admin-sidebar__link">
+                <i class="fas fa-users"></i> Manage Users
+            </a>
+            <a href="manage-products.php" class="admin-sidebar__link">
+                <i class="fas fa-wheat-awn"></i> Manage Products
+            </a>
+            <a href="manage-orders.php" class="admin-sidebar__link">
+                <i class="fas fa-shopping-cart"></i> Manage Orders
+            </a>
 
-    <h3 class="glow"><i class="fa fa-terminal"></i> ML Model Console</h3>
+            <div class="admin-sidebar__label">AI & Automation</div>
+            <a href="runml.php" class="admin-sidebar__link active">
+                <i class="fas fa-robot"></i> AI Expiry Audit
+            </a>
 
-    <div class="console-box" id="console">
+            <div class="admin-sidebar__label">Account</div>
+            <a href="change-password.php" class="admin-sidebar__link">
+                <i class="fas fa-lock"></i> Change Password
+            </a>
+            <a href="logout.php" class="admin-sidebar__link" style="color: var(--agro-red-500);">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <div class="admin-topbar__title">AI Expiry & Email Alerts Console</div>
+            <div class="admin-topbar__user">
+                <div class="admin-topbar__avatar">A</div>
+                <div>
+                    <div style="font-weight: 600; font-size: 14px; color: #0f172a;"><?php echo htmlspecialchars($_SESSION['alogin']); ?></div>
+                    <div style="font-size: 12px; color: #64748b;">System Administrator</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Body -->
+        <div class="admin-content">
+
+            <div class="admin-card" style="padding: 28px;">
+                <div class="loader" id="loader">
+                    <i class="fas fa-microchip"></i> Executing AI Expiry Engine <span id="dots">.</span>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <div class="admin-card__title">
+                        <i class="fas fa-terminal" style="color: #38bdf8;"></i> Execution Terminal
+                    </div>
+                    <span class="admin-badge admin-badge--green"><i class="fas fa-bolt" style="margin-right: 4px;"></i> Live Output</span>
+                </div>
+
+                <div class="console-box" id="console">
 <?php
-echo ">>> sys.path:\n";
-echo shell_exec("/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/ML/venv/bin/python3 -m site");
+$baseDir = dirname(__DIR__);
+$mlDir = $baseDir . DIRECTORY_SEPARATOR . 'ML';
+$script = $mlDir . DIRECTORY_SEPARATOR . 'mlscript.py';
 
-echo "\n>>> Starting ML Script...\n\n";
+// Candidate Python binaries
+$possiblePythons = [
+    $mlDir . DIRECTORY_SEPARATOR . 'venv' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'python.exe',
+    $mlDir . DIRECTORY_SEPARATOR . 'venv' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'python3',
+    $mlDir . DIRECTORY_SEPARATOR . 'venv' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'python',
+    $mlDir . DIRECTORY_SEPARATOR . 'venv' . DIRECTORY_SEPARATOR . 'Scripts' . DIRECTORY_SEPARATOR . 'python.exe',
+    'C:\\Users\\Pratham\\AppData\\Local\\Programs\\Python\\Python313\\python.exe',
+    'python3',
+    'python'
+];
 
-$python = "/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/ML/venv/bin/python3";
-$script = "/Applications/XAMPP/xamppfiles/htdocs/AgroNGO/ML/mlscript.py";
+$python = 'python';
+foreach ($possiblePythons as $cand) {
+    if (file_exists($cand)) {
+        $python = $cand;
+        break;
+    }
+}
+
+echo ">>> Using Python Interpreter: " . htmlspecialchars($python) . "\n";
+echo ">>> Executing Script: " . htmlspecialchars($script) . "\n\n";
 
 $descriptorspec = [
     1 => ['pipe', 'w'], 
@@ -124,7 +166,7 @@ if (is_resource($process)) {
         }
 
         if ($stderr !== false) {
-            echo "<span style='color:red;'>ERROR: " . htmlentities($stderr) . "</span>";
+            echo "<span style='color:#ef4444;'>ERROR: " . htmlentities($stderr) . "</span>";
             flush();
         }
 
@@ -136,34 +178,32 @@ if (is_resource($process)) {
     proc_close($process);
 }
 
-echo "\n>>> All tasks completed.\n";
+echo "\n>>> All tasks completed successfully.\n";
 ?>
-    </div>
+                </div>
 
-    <a href="dashboard.php" class="btn btn-primary">
-        <i class="fa fa-arrow-left"></i> Back to Dashboard
-    </a>
+                <div style="margin-top: 20px;">
+                    <a href="dashboard.php" class="agro-btn agro-btn--outline">
+                        <i class="fas fa-arrow-left"></i> Return to Dashboard
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
 </div>
-
-<footer>
-    <p>© <?php echo date("Y"); ?> AgroNGO. All rights reserved.</p>
-</footer>
 
 <script>
     const consoleBox = document.getElementById("console");
-    
-    // MutationObserver to scroll on new output
     const observer = new MutationObserver(() => {
         consoleBox.scrollTop = consoleBox.scrollHeight;
     });
     observer.observe(consoleBox, { childList: true, subtree: true });
 
-    // Also fallback: periodically ensure scroll stays at bottom
     setInterval(() => {
         consoleBox.scrollTop = consoleBox.scrollHeight;
     }, 200);
 
-    // Dot animation for loader
     let dots = document.getElementById("dots");
     let count = 1;
     setInterval(() => {
@@ -171,7 +211,6 @@ echo "\n>>> All tasks completed.\n";
         dots.textContent = ".".repeat(count);
     }, 500);
 
-    // Hide loader after page load + 1.5s
     window.onload = () => {
         setTimeout(() => {
             document.getElementById("loader").style.display = "none";

@@ -1,68 +1,110 @@
-# AgroNGO
+# 🌾 AgroNGO — Direct Farm-to-Consumer Marketplace with AI Insights
 
-AgroNGO is a comprehensive web-based platform designed to bridge the gap between farmers and consumers (buyers). By cutting out the middlemen, it allows farmers to sell their agricultural products directly to consumers at fair prices, ensuring profitability for farmers and fresh produce for buyers.
+AgroNGO is a modern, full-stack web platform designed to bridge the gap between Indian farmers and consumers (buyers). By eliminating middleman exploitation, it empowers farmers to sell fresh produce directly at fair prices while offering consumers transparent, farm-fresh produce with integrated **Machine Learning shelf-life prediction** and **dynamic price recommendations**.
 
-## Features
+---
 
-### 🚜 Farmer Portal
-- **Direct Selling:** Farmers can upload their crops, vegetables, and fruits directly to the marketplace.
-- **Order Management:** View and manage incoming orders and transactions from buyers.
-- **Machine Learning Integration:** Includes predictive ML models to assist farmers with crop recommendations and yield predictions.
-- **Secure Registration:** Secure authentication and profile management for farmers.
+## ✨ Key Features & Modern Architecture
 
-### 🛒 Buyer Portal
-- **Marketplace:** Consumers and wholesale buyers can browse a wide variety of fresh produce directly from farmers.
-- **Shopping Cart:** Add products to a cart, adjust quantities, and save items for later.
-- **Direct Communication:** Get farmer details and communicate with them directly.
-- **Search & Filter:** Search for specific crops, filter by category, or find products by state and district.
+### 🎨 Modernized UI/UX Design System
+- **Centralized Design Token System (`Styles/agronogo-design.css`)**: Built with Vanilla CSS, HSL color tokens, Google Fonts (`Inter` & `Outfit`), glassmorphism containers, smooth CSS keyframe animations, and custom badges.
+- **Interactive JS Component Suite (`Styles/agronogo-components.js`)**: Scroll-reveal animations, sticky navbar state handlers, mobile navigation drawers, toast notification engine (`AgroToast`), password toggles, and quantity steppers.
+- **Unified Navigation Components**: Reusable PHP header (`agro_navbar()`) and footer (`agro_footer()`) integrated across all public, buyer, farmer, and admin pages.
+- **High-Contrast Dark Glass Authentication**: High-contrast dark glassmorphic cards (`rgba(17, 24, 39, 0.88)`) with crisp typography, field labels, and action buttons for Farmer, Buyer, and Admin sign-in.
 
-### ⚙️ Admin Dashboard
-- **Platform Management:** Admins can oversee all users (buyers and farmers).
-- **Product Oversight:** Manage listed products, categories, and site activity.
-- **Data & Analytics:** Monitor transactions, users, and overall platform health.
+---
 
-## Technology Stack
+### 🤖 Machine Learning Subsystem (`/ML` & `/models`)
+- **Produce Shelf-Life Prediction (`expiry_model.joblib`)**: Random Forest model predicting freshness duration (in days) based on produce category, harvest date, temperature, and storage condition (Ambient, Cold Storage, Refrigerated).
+- **Dynamic Price Recommendation (`price_model.joblib`)**: Machine learning model suggesting fair per-kg market pricing based on crop stock, state location, processing level, and seasonal demand.
+- **PHP ORM Integration (`Includes/ORM.php`, `Includes/Models/AgroModels.php`)**: Object-Relational Mapping layer connecting PHP portal logic with Python ML inference.
 
-- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 4
-- **Backend:** PHP 8+
-- **Database:** MySQL
-- **Machine Learning / Scripts:** Python (scikit-learn, pandas, etc.)
-- **Security:** AES-128-CTR encryption for passwords
+---
 
-## Installation & Setup
+### 🚜 Farmer Portal (`/FarmerPortal`)
+- **Produce Management**: Upload fruits, vegetables, and crops with storage conditions and processing states.
+- **AI Price Assistant**: Interactive `#suggestPriceBtn` on product upload (`InsertProduct.php`) predicting optimal market pricing.
+- **Order Tracker & Transactions**: Visual order status timeline (Packing → Dispatched → In Transit → Delivered) and detailed transaction history.
+- **Farmer Profile**: Verified details card with bank account info, PAN, address, and district location.
 
-1. **Prerequisites:**
-   - Install a local server environment like XAMPP or MAMP (which includes Apache and MySQL).
-   - Python 3.x (if you plan to run the ML scripts).
+---
 
-2. **Database Setup:**
-   - Open phpMyAdmin (usually `http://localhost/phpmyadmin`).
-   - Create a new database named `impulse102`.
-   - Import the `AgroCraft.sql` file provided in the root directory into the `impulse102` database.
+### 🛒 Buyer Portal (`/BuyerPortal2`)
+- **Fresh Produce Marketplace (`bhome.php`)**: Browse fruits, vegetables, and grain crops with state/district filters and search.
+- **Product Details (`productdetails.php`)**: 3-column view with produce photos, freshness indicators, fulfillment options, and direct farmer contact cards.
+- **Shopping Cart (`cartpage.php`)**: Quantity stepper controls, item removal, and sticky order summary.
+- **Checkout & Payments (`checkout.php`)**: Address verification, fulfillment selection (Farmer delivery, Buyer self-pickup, Courier), and payment options (Cash on Delivery, Paytm UPI).
 
-3. **Project Setup:**
-   - Clone or extract this repository into your local server's document root (e.g., `htdocs` for XAMPP).
-   - Ensure the folder is named `AgroNGO`.
+---
 
-4. **Configuration:**
-   - The database configuration files are located at:
+### 🛡️ Admin Panel (`/admins`)
+- **Admin Control Portal**: Modernized sign-in interface (`admins/index.php`) and administration panel for managing users, listings, and site analytics.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Frontend**: HTML5, Vanilla CSS3 (Custom Design System), JavaScript (ES6+), FontAwesome 6.5
+- **Backend**: PHP 8+
+- **Database**: MySQL (`impulse102` database)
+- **Machine Learning**: Python 3.x, `scikit-learn`, `joblib`, `pandas`, `numpy`
+- **Security**: AES-128-CTR password encryption with OpenSSL
+
+---
+
+## 🚀 Installation & Local Setup
+
+1. **Prerequisites**:
+   - Local web server environment like **XAMPP** (Apache + MySQL).
+   - Python 3.8+ (for Machine Learning inference and retraining).
+
+2. **Database Setup**:
+   - Open phpMyAdmin (`http://localhost/phpmyadmin`).
+   - Create a database named `impulse102`.
+   - Import `AgroCraft.sql` (or `migrate_db.sql`) into the `impulse102` database.
+
+3. **Repository Setup**:
+   - Clone or extract this workspace into your local server root (e.g., `C:\xampp\htdocs\AgroNGO` or create a directory junction pointing to this repo).
+
+4. **Database Configuration**:
+   - Database credentials are managed in:
      - `Includes/db.php`
-     - `Admin/includes/db.php`
+     - `Functions/functions.php`
      - `admins/includes/config.php`
-   - Ensure the credentials match your local MySQL setup (default for XAMPP is usually `root` with no password).
 
-5. **Run the Application:**
-   - Open your web browser and navigate to `http://localhost/AgroNGO/`.
-   - You can access the Buyer Portal, Farmer Portal, and Admin Dashboard from the main homepage.
+5. **Access Application**:
+   - Open browser and navigate to:
+     - **Main Landing Page**: `http://localhost/AgroNGO/index.html`
+     - **Farmer Login**: `http://localhost/AgroNGO/auth/FarmerLogin.php`
+     - **Buyer Login**: `http://localhost/AgroNGO/auth/BuyerLogin.php`
+     - **Admin Portal**: `http://localhost/AgroNGO/admins/index.php`
 
-## File Structure Highlights
+---
 
-- `/BuyerPortal2` & `/BuyerPortal` - Contains all frontend and backend logic for the buyer's shopping experience.
-- `/FarmerPortal` - Dashboard and product management for farmers.
-- `/admins` & `/Admin` - Administrative control panel.
-- `/ML` - Python scripts for machine learning features (e.g., `mlscript.py`).
-- `/auth` - Handles user registration and secure login.
-- `/Includes` & `/Functions` - Core PHP logic, database connection, and reusable functions.
+## 📁 Repository Directory Structure
 
-## Developed In
-Developed in 2026. All rights reserved.
+```
+agrnongo-pmp/
+├── index.html                  # Upgraded Landing Page with Hero V2 & AI Banner
+├── Styles/
+│   ├── agronogo-design.css     # Centralized Design Tokens & UI Styles
+│   └── agronogo-components.js  # Interactive JS Component Engine
+├── Includes/
+│   ├── components/
+│   │   ├── navbar.php          # Shared Header Component (agro_navbar)
+│   │   └── footer.php          # Shared Footer Component (agro_footer)
+│   ├── ORM.php                 # PHP Database ORM Layer
+│   └── db.php                  # MySQL Database Connection
+├── auth/                       # Auth Pages (FarmerLogin, BuyerLogin, Registers, Forgot Passwords)
+├── FarmerPortal/               # Farmer Dashboard, Product Management, Orders & Profile
+├── BuyerPortal2/               # Buyer Marketplace, Cart, Checkout & Product Details
+├── admins/                     # Admin Control Portal
+└── ML/                         # Machine Learning Pipeline & Trained Models
+    ├── models/                 # Trained .joblib sklearn models
+    ├── GFG1_realistic.csv      # Botanical Produce Dataset
+    └── train_enhanced_ml.py    # Retraining Script
+```
+
+---
+
+© 2026 AgroNGO — Direct Farm-to-Consumer Platform. All rights reserved.

@@ -15,6 +15,9 @@ if (isset($_POST['update_pro'])) {
     $product_keywords = mysqli_real_escape_string($con, $_POST['product_keywords']);
     $product_delivery = mysqli_real_escape_string($con, $_POST['product_delivery']);
 
+    $storage_condition = mysqli_real_escape_string($con, $_POST['storage_condition'] ?? 'Ambient');
+    $is_processed = intval($_POST['is_processed'] ?? 0);
+
     // Handle image upload if a new image is provided
     if (!empty($_FILES['product_image']['name'])) {
         $product_image = $_FILES['product_image']['name'];
@@ -32,7 +35,9 @@ if (isset($_POST['update_pro'])) {
                         product_image = '$product_image',
                         product_desc = '$product_desc',
                         product_keywords = '$product_keywords',
-                        product_delivery = '$product_delivery'
+                        product_delivery = '$product_delivery',
+                        storage_condition = '$storage_condition',
+                        is_processed = '$is_processed'
                         WHERE product_id = '$product_id'";
     } else {
         // Update query without changing the image
@@ -45,7 +50,9 @@ if (isset($_POST['update_pro'])) {
                         product_expiry = '$product_expiry',
                         product_desc = '$product_desc',
                         product_keywords = '$product_keywords',
-                        product_delivery = '$product_delivery'
+                        product_delivery = '$product_delivery',
+                        storage_condition = '$storage_condition',
+                        is_processed = '$is_processed'
                         WHERE product_id = '$product_id'";
     }
 

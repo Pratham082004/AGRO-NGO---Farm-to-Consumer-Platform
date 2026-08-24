@@ -1,6 +1,8 @@
  <?php
 
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     include("../Includes/db.php");
 
@@ -228,42 +230,7 @@
             </div>";
         }
     }
-    //function  which is link with FarmerProductDetails
-    // function getFarmerProductDetails()
-    // {
-    //     include("../Includes/db.php");
-    //     global $con;
-    //     if (isset($_GET['id'])) {
-    //         $prod_id = $_GET['id'];
-    //         $query = "select * from products where product_id=" . $prod_id;
-    //         $run_query = mysqli_query($con, $query);
-    //         $resultCheck = mysqli_num_rows($run_query);
-    //         if ($resultCheck > 0) {
-    //             while ($rows = mysqli_fetch_array($run_query)) {
-    //                 $product_title = $rows['product_title'];
-    //                 $product_image = $rows['product_image'];
-    //                 $product_type = $rows['product_type'];
-    //                 $product_stock = $rows['product_stock'];
-    //                 $product_description = $rows['product_desc'];
-    //                 $product_price = $rows['product_price'];
-    //                 $product_delivery = $rows['product_delivery'];
-    //                 $product_cat = $rows['product_cat'];
-    //                 echo "<div>
-    //                 <img src='../Admin/product_images/$product_image' height='250px' width='300px' ><br>"
-    //                     . " product title  :  " . $product_title . "<br>"
-    //                     . " product type  :  " . $product_type . "<br>"
-    //                     . " product stock  :  " . $product_stock . "<br>"
-    //                     . " product Description  :  " . $product_description . "<br>"
-    //                     . " product price  :  " . $product_price . "<br>"
-    //                     . " product Delivery  :  " . $product_delivery . "<br>"
-    //                     . " product category  :  " . $product_cat . "<br>"
-    //                     . "</div>";
-    //             }
-    //         }
-    //     } else {
-    //         echo "<br><br><hr><h1 align = center>Product Not Uploaded !</h1><br><br><hr>";
-    //     }
-    // }
+
 
     // Checkout System Functions
     function cart()
@@ -415,9 +382,6 @@
     }
 
 
-    function bestSeller()
-    {
-        global $con;
-    }
+
     ?>
 

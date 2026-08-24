@@ -1,82 +1,82 @@
 <?php
 session_start();
 include('includes/config.php');
+include("../Functions/functions.php");
+include("../Includes/components/navbar.php");
+include("../Includes/components/footer.php");
+
 if(isset($_POST['login']))
 {
-$uname=$_POST['username'];
-$password=md5($_POST['password']);
-$sql ="SELECT UserName,Password FROM admin WHERE UserName=:uname and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':uname', $uname, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
-{
-$_SESSION['alogin']=$_POST['username'];
-echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
-} else{
-	
-	echo "<script>alert('Invalid Details');</script>";
-
+    $uname=$_POST['username'];
+    $password=md5($_POST['password']);
+    $sql ="SELECT UserName,Password FROM admin WHERE UserName=:uname and Password=:password";
+    $query= $dbh -> prepare($sql);
+    $query-> bindParam(':uname', $uname, PDO::PARAM_STR);
+    $query-> bindParam(':password', $password, PDO::PARAM_STR);
+    $query-> execute();
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    if($query->rowCount() > 0)
+    {
+        $_SESSION['alogin']=$_POST['username'];
+        echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
+    } else {
+        echo "<script>alert('Invalid Admin Credentials');</script>";
+    }
 }
-
-}
-
 ?>
-
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>AgroNGO | Admin Sign in</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-<!-- Custom CSS -->
-<link href="css/style.css" rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="css/morris.css" type="text/css"/>
-<!-- Graph CSS -->
-<link href="css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="css/jquery-ui.css"> 
-<!-- jQuery -->
-<script src="js/jquery-2.1.4.min.js"></script>
-<!-- //jQuery -->
-<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
-<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<!-- lined-icons -->
-<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
-<!-- //lined-icons -->
-</head> 
-<body>
-	<div class="main-wthree">
-	<div class="container">
-	<div class="sin-w3-agile">
-		<h2>Sign In</h2>
-		<form  method="post">
-			<div class="username">
-				<span class="username">Username:</span>
-				<input type="text" name="username" class="name" placeholder="" required="">
-				<div class="clearfix"></div>
-			</div>
-			<div class="password-agileits">
-				<span class="username">Password:</span>
-				<input type="password" name="password" class="password" placeholder="" required="">
-				<div class="clearfix"></div>
-			</div>
-			
-			<div class="login-w3">
-					<input type="submit" class="login" name="login" value="Sign In">
-			</div>
-			<div class="clearfix"></div>
-		</form>
-				<div class="back">
-					<a href="../index.html">Back to HOME Page</a>
-				</div>
-				
-	</div>
-	</div>
-	</div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — AgroNGO</title>
+    <link rel="stylesheet" href="../Styles/agronogo-design.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <!-- Shared Header -->
+    <?php agro_navbar('public', 'admin'); ?>
+
+    <!-- Auth Container -->
+    <div class="agro-auth" style="flex: 1; padding: var(--space-12) var(--space-4);">
+        <div class="agro-auth__card">
+            <div class="agro-auth__logo">
+                <div class="agro-auth__logo-icon">🛡️</div>
+            </div>
+
+            <h1 class="agro-auth__title">Admin Control Portal</h1>
+            <p class="agro-auth__subtitle">Sign in to manage users, packages, and platform settings</p>
+
+            <form method="post" id="admin-login-form">
+                <div class="agro-form-group">
+                    <label class="agro-label" for="username">
+                        <i class="fas fa-user-shield" style="margin-right:6px;"></i>Username
+                    </label>
+                    <input type="text" id="username" class="agro-input" name="username" placeholder="Admin username" required>
+                </div>
+
+                <div class="agro-form-group">
+                    <label class="agro-label" for="password">
+                        <i class="fas fa-lock" style="margin-right:6px;"></i>Password
+                    </label>
+                    <input type="password" id="password" class="agro-input" name="password" placeholder="Admin password" required>
+                </div>
+
+                <button type="submit" name="login" value="Sign In" class="agro-btn agro-btn--primary agro-btn--full agro-btn--lg">
+                    <i class="fas fa-right-to-bracket"></i> Sign In to Admin Panel
+                </button>
+
+                <div class="agro-auth__links" style="justify-content: center; margin-top: var(--space-5);">
+                    <a href="../index.html"><i class="fas fa-arrow-left" style="margin-right:4px;"></i> Return to Homepage</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Shared Footer -->
+    <?php agro_footer('public'); ?>
+
+    <script src="../Styles/agronogo-components.js"></script>
 </body>
 </html>
