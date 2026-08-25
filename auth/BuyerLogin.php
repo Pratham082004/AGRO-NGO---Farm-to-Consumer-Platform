@@ -100,13 +100,15 @@ if (isset($_POST['login'])) {
     if ($count_rows == 0) {
         echo "<script>alert('Please Enter Valid Details');</script>";
         echo "<script>window.open('BuyerLogin.php','_self')</script>";
+        exit();
+    } else {
+        while ($row = mysqli_fetch_array($run_query)) {
+            $id = $row['buyer_id'];
+        }
+        $_SESSION['phonenumber'] = $phonenumber;
+        echo "<script>window.open('../BuyerPortal2/bhome.php','_self')</script>";
+        exit();
     }
-    while ($row = mysqli_fetch_array($run_query)) {
-        $id = $row['buyer_id'];
-    }
-
-    $_SESSION['phonenumber'] = $phonenumber;
-    echo "<script>window.open('../BuyerPortal2/bhome.php','_self')</script>";
 }
 
 ?>

@@ -116,7 +116,7 @@ include("../Includes/components/footer.php");
                 <button class="category-nav-btn dropdown-toggle" type="button" id="fruitsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     🍎 Fresh Fruits
                 </button>
-                <div class="dropdown-menu agro-dropdown__menu" aria-labelledby="fruitsDropdown" style="display:block; opacity:0; pointer-events:none;">
+                <div class="dropdown-menu agro-dropdown__menu" aria-labelledby="fruitsDropdown">
                     <?php getFruits(); ?>
                 </div>
             </div>

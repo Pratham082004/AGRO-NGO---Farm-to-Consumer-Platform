@@ -97,6 +97,13 @@ $sess_phone_number = $_SESSION['phonenumber'] ?? null;
             display: grid;
             grid-template-columns: 1fr 1.3fr;
             gap: var(--space-8);
+            align-items: start;
+        }
+        .sim-results-box {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-5);
+            width: 100%;
         }
         @media (max-width: 992px) {
             .sim-container {
@@ -192,7 +199,7 @@ $sess_phone_number = $_SESSION['phonenumber'] ?? null;
                             <i class="fas fa-seedling" style="font-size: 3rem; color: var(--agro-green-500); margin-bottom: 12px;"></i>
                             <h3>No Active Inventory Found</h3>
                             <p>List your produce items to get real-time Ollama LLM buyer recommendations.</p>
-                            <a href="InsertProduct.php" class="agro-btn agro-btn--primary style="margin-top: 12px;">Add New Product</a>
+                            <a href="InsertProduct.php" class="agro-btn agro-btn--primary" style="margin-top: 12px;">Add New Product</a>
                         </div>';
                     }
                     ?>
@@ -279,7 +286,7 @@ $sess_phone_number = $_SESSION['phonenumber'] ?? null;
                         <p style="color: var(--text-tertiary);">Evaluating decay profile, sugar concentration, and optimal buyer fit...</p>
                     </div>
 
-                    <div id="aiResults" style="display: none;" class="agro-flex" style="flex-direction: column; gap: var(--space-6);">
+                    <div id="aiResults" style="display: none;" class="sim-results-box">
                         <!-- Status Banner -->
                         <div id="resBanner" class="agro-card agro-card__body" style="border-left: 5px solid var(--color-danger);">
                             <div class="agro-flex-between" style="flex-wrap: wrap; gap: 12px;">
@@ -383,7 +390,9 @@ $sess_phone_number = $_SESSION['phonenumber'] ?? null;
         }
 
         function renderResults(data) {
-            document.getElementById('aiResults').style.display = 'flex';
+            const resContainer = document.getElementById('aiResults');
+            resContainer.style.display = 'flex';
+            resContainer.style.flexDirection = 'column';
 
             const uBadge = document.getElementById('resBadge');
             const uBanner = document.getElementById('resBanner');

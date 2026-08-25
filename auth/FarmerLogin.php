@@ -99,13 +99,15 @@ if (isset($_POST['login'])) {
 	if ($count_rows == 0) {
 		echo "<script>alert('Please Enter Valid Details');</script>";
 		echo "<script>window.open('FarmerLogin.php','_self')</script>";
+		exit();
+	} else {
+		while ($row = mysqli_fetch_array($run_query)) {
+			$id = $row['farmer_id'];
+		}
+		$_SESSION['phonenumber'] = $phonenumber;
+		echo "<script>window.open('../FarmerPortal/farmerHomepage.php','_self')</script>";
+		exit();
 	}
-	while ($row = mysqli_fetch_array($run_query)) {
-		$id = $row['farmer_id'];
-	}
-
-	$_SESSION['phonenumber'] = $phonenumber;
-	echo "<script>window.open('../FarmerPortal/farmerHomepage.php','_self')</script>";
 }
 
 ?>

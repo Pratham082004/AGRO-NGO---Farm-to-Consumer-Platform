@@ -143,15 +143,19 @@ if (isset($_POST['register'])) {
 
     if (strcmp($password, $confirmpassword) == 0) {
         $query = "insert into buyerregistration (buyer_name,buyer_phone,
-                buyer_email,buyer_username,buyer_password,buyer_addr,
+                buyer_mail,buyer_username,buyer_password,buyer_addr,
                 buyer_comp,buyer_license,buyer_bank,buyer_pan) 
                 values ('$name','$phonenumber','$mail','$username',
                 '$encryption','$address','$company_name','$license',
                 '$account','$pan')";
 
         $run_register_query = mysqli_query($con, $query);
-        echo "<script>alert('Buyer Account created successfully!');</script>";
-        echo "<script>window.open('BuyerLogin.php','_self')</script>";
+        if ($run_register_query) {
+            echo "<script>alert('Buyer Account created successfully!');</script>";
+            echo "<script>window.open('BuyerLogin.php','_self')</script>";
+        } else {
+            echo "<script>alert('Registration failed: " . mysqli_real_escape_string($con, mysqli_error($con)) . "');</script>";
+        }
     } else {
         echo "<script>alert('Password and Confirm Password should match');</script>";
     }

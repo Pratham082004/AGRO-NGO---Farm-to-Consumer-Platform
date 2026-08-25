@@ -52,7 +52,11 @@ class Category(Base):
     cat_id = Column(Integer, primary_key=True, autoincrement=True)
     cat_title = Column(String(100), nullable=False)
 
-def get_db_session(db_name="impulse102", host="127.0.0.1", user="root", password=""):
+def get_db_session(db_name=None, host=None, user=None, password=None):
+    db_name = db_name or os.getenv("DB_NAME", "impulse102")
+    host = host or os.getenv("DB_HOST", "127.0.0.1")
+    user = user or os.getenv("DB_USER", "root")
+    password = password if password is not None else os.getenv("DB_PASS", "")
     db_url = f"mysql+pymysql://{user}:{password}@{host}/{db_name}"
     engine = create_engine(db_url, echo=False, pool_pre_ping=True)
     Session = sessionmaker(bind=engine)

@@ -12,7 +12,7 @@
             $phonenumber = $_SESSION['phonenumber'];
             global $con;
 
-            $query = "select * from buyerregistration where buyer_phone = $phonenumber";
+            $query = "select * from buyerregistration where buyer_phone = '$phonenumber'";
             $run_query = mysqli_query($con, $query);
             if ($run_query) {
                 while ($row_cat = mysqli_fetch_array($run_query)) {
@@ -36,7 +36,7 @@
             $phonenumber = $_SESSION['phonenumber'];
             global $con;
 
-            $query = "select * from farmerregistration where farmer_phone = $phonenumber";
+            $query = "select * from farmerregistration where farmer_phone = '$phonenumber'";
             $run_query = mysqli_query($con, $query);
             if ($run_query) {
                 while ($row_cat = mysqli_fetch_array($run_query)) {
@@ -112,9 +112,8 @@
     function getProducts()
     {
         global $con;
-        $query = "select * from products  order by RAND() LIMIT 0,6";
+        $query = "select * from products order by RAND() LIMIT 0,6";
         $run_query = mysqli_query($con, $query);
-        echo "<br>";
         while ($rows = mysqli_fetch_array($run_query)) {
             $product_id = $rows['product_id'];
             $product_title = $rows['product_title'];
@@ -122,63 +121,41 @@
             $product_price = $rows['product_price'];
             $product_delivery = $rows['product_delivery'];
             $farmer_fk = $rows['farmer_fk'];
-            $farmer_name_query = "select farmer_name from farmerregistration where farmer_id = $farmer_fk";
+
+            $name = "Local Farmer";
+            $farmer_name_query = "select farmer_name from farmerregistration where farmer_id = '$farmer_fk'";
             $running_query_name = mysqli_query($con, $farmer_name_query);
-            while ($names = mysqli_fetch_array($running_query_name)) {
-                $name = $names['farmer_name'];
-            }
-            if ($product_delivery == "yes") {
-                $product_delivery = "Delivery by Farmer";
-            } else {
-                $product_delivery = "Delivery by Farmer Not Available";
+            if ($running_query_name && $farmer_row = mysqli_fetch_array($running_query_name)) {
+                $name = $farmer_row['farmer_name'];
             }
 
+            $delivery_badge = ($product_delivery == "yes") ? "Delivery Available" : "Pickup Only";
+            $badge_class = ($product_delivery == "yes") ? "agro-badge--green" : "agro-badge--amber";
+            $image_src = !empty($product_image) ? "../Admin/product_images/$product_image" : "../Images/Website/noimage.jpg";
 
             echo "
-                    <div class='col col-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
-                <div class='card pb-1 pl-1 pr-1 pt-0' style='height:542px'>
-                    <br>
-                    <div class='mt-0'><b>
-                            <h4><img src='iconsmall.png' style='width: 28px; margin-bottom:  10px;'> $name
-                        </b></h4>
-                    </div>
+            <div class='agro-product-card'>
+                <div class='agro-product-card__image-wrap'>
+                    <span class='agro-badge $badge_class agro-product-card__badge'>$delivery_badge</span>
                     <a href='../BuyerPortal2/ProductDetails.php?id=$product_id'>
-                        <img class='card-img-top' src='../Admin/product_images/$product_image' alt='Card image cap' height='300px'>
+                        <img class='agro-product-card__image' src='$image_src' alt='" . htmlspecialchars($product_title) . "' onerror=\"this.src='../Images/Website/noimage.jpg'\">
                     </a>
-                    <div class='card-body pb-0'>
-                        <div class='row'>
-                            <div class='col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12'>
-                                <div class='input-group mb'>
-                                    <div class='input-group-prepend'>
-                                        <h5 class='card-title font-weight-bold'>$product_title</h5>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class='col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12'>
-                                <div class='input-group mb-1'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text bg-warning border-secondary p-1' style='color:black;' id='inputGroup-sizing-default' placeholder='1'><b>Quantity</b></span>
-                                    </div>
-                                    <input type='number' class='form-control' aria-label='Default' style='margin-top:0%;width:20%;padding:0%;' aria-describedby='inputGroup-sizing-default'>
-                                </div>
-                            </div>
+                </div>
+                <div class='agro-product-card__body'>
+                    <div class='agro-product-card__category'>👨‍🌾 " . htmlspecialchars($name) . "</div>
+                    <h3 class='agro-product-card__name'>" . htmlspecialchars($product_title) . "</h3>
+                    <div class='agro-product-card__footer agro-mt-4'>
+                        <div class='agro-product-card__price'>
+                            ₹" . htmlspecialchars($product_price) . " <span class='agro-product-card__price-unit'>/ kg</span>
                         </div>
-                        <p class='card-text mb-2 font-weight-bold'>PRICE:- $product_price Rs/kg</p>
-                        <div class='row'>
-                            <div class='col-1 col-xl-3 col-lg-2 col-md-2 col-sm-2'></div>
-                            <div class='col-12 col-xl-6 col-lg-6 col-md-6  col-sm-12'>
-                                <a href='../BuyerPortal2/bhome.php?add_cart=$product_id' class='btn btn-warning border-secondary mr-1  ' style='color:black ;font-weight:50px;'>Add to cart<img src='carticons.png' height='20px'></a>
-                            </div>
-                        </div>
+                        <a href='../BuyerPortal2/bhome.php?add_cart=$product_id' class='agro-btn agro-btn--secondary agro-btn--sm'>
+                            <i class='fas fa-cart-plus'></i> Add to Cart
+                        </a>
                     </div>
                 </div>
-            </div>
-           ";
+            </div>";
         }
     }
-
-
 
     function getVegetablesHomepage()
     {
@@ -190,19 +167,26 @@
             $product_title = $rows['product_title'];
             $product_image = $rows['product_image'];
             $product_price = $rows['product_price'];
-            $product_delivery = $rows['product_delivery'];
-            $product_cat = $rows['product_cat'];
             $product_type = $rows['product_type'];
+            $image_src = "../Admin/product_images/$product_image";
 
-            // echo "  <div class='veg'>
-            //             <a href='../BuyerPortal/BuyerProductDetails.php?id=$product_id'><img src='../Admin/product_images/$product_image' height='250px' width='300px' ></a>
-            //         </div>";
-
-            echo "<div class='column kolum'>
-                <div class='img-thumbnail ''>
-                     <a href='../BuyerPortal2/Categories.php?type=$product_type'>
-                        <img class='rounded mx-auto d-block images' src='../Admin/product_images//$product_image' width='350px' height='200px' alt='image'>
-                     </a>
+            echo "
+            <div class='agro-product-card'>
+                <div class='agro-product-card__image-wrap'>
+                    <span class='agro-badge agro-badge--green agro-product-card__badge'>🥦 Vegetable</span>
+                    <a href='../BuyerPortal2/Categories.php?type=$product_type'>
+                        <img class='agro-product-card__image' src='$image_src' alt='" . htmlspecialchars($product_title) . "' onerror=\"this.src='../Images/Website/noimage.jpg'\">
+                    </a>
+                </div>
+                <div class='agro-product-card__body'>
+                    <div class='agro-product-card__category'>" . htmlspecialchars($product_type) . "</div>
+                    <h3 class='agro-product-card__name'>" . htmlspecialchars($product_title) . "</h3>
+                    <div class='agro-product-card__footer agro-mt-4'>
+                        <div class='agro-product-card__price'>₹" . htmlspecialchars($product_price) . " <span class='agro-product-card__price-unit'>/ kg</span></div>
+                        <a href='../BuyerPortal2/Categories.php?type=$product_type' class='agro-btn agro-btn--outline agro-btn--sm'>
+                            View All <i class='fas fa-arrow-right'></i>
+                        </a>
+                    </div>
                 </div>
             </div>";
         }
@@ -218,14 +202,26 @@
             $product_title = $rows['product_title'];
             $product_image = $rows['product_image'];
             $product_price = $rows['product_price'];
-            $product_delivery = $rows['product_delivery'];
-            $product_cat = $rows['product_cat'];
             $product_type = $rows['product_type'];
-            echo "<div class='column kolum'>
-                <div class='img-thumbnail ''>
-                     <a href='../BuyerPortal2/Categories.php?type=$product_type'>
-                        <img class='rounded mx-auto d-block images' src='../Admin/product_images//$product_image' width='350px' height='200px' alt='image'>
-                     </a>
+            $image_src = "../Admin/product_images/$product_image";
+
+            echo "
+            <div class='agro-product-card'>
+                <div class='agro-product-card__image-wrap'>
+                    <span class='agro-badge agro-badge--amber agro-product-card__badge'>🍎 Fruit</span>
+                    <a href='../BuyerPortal2/Categories.php?type=$product_type'>
+                        <img class='agro-product-card__image' src='$image_src' alt='" . htmlspecialchars($product_title) . "' onerror=\"this.src='../Images/Website/noimage.jpg'\">
+                    </a>
+                </div>
+                <div class='agro-product-card__body'>
+                    <div class='agro-product-card__category'>" . htmlspecialchars($product_type) . "</div>
+                    <h3 class='agro-product-card__name'>" . htmlspecialchars($product_title) . "</h3>
+                    <div class='agro-product-card__footer agro-mt-4'>
+                        <div class='agro-product-card__price'>₹" . htmlspecialchars($product_price) . " <span class='agro-product-card__price-unit'>/ kg</span></div>
+                        <a href='../BuyerPortal2/Categories.php?type=$product_type' class='agro-btn agro-btn--outline agro-btn--sm'>
+                            View All <i class='fas fa-arrow-right'></i>
+                        </a>
+                    </div>
                 </div>
             </div>";
         }
@@ -270,34 +266,54 @@
     {
         include("../Includes/db.php");
         global $con;
-        $sess_phone_number = $_SESSION['phonenumber'];
-        $query = "select * from products where farmer_fk in (select farmer_id from farmerregistration where farmer_phone=$sess_phone_number) ";
+        if (!isset($_SESSION['phonenumber'])) return;
+        $sess_phone_number = mysqli_real_escape_string($con, $_SESSION['phonenumber']);
+        $query = "select * from products where farmer_fk in (select farmer_id from farmerregistration where farmer_phone='$sess_phone_number') order by product_id desc";
         $run_query = mysqli_query($con, $query);
-        $count = 0;
-        if ($run_query) {
+        $count = $run_query ? mysqli_num_rows($run_query) : 0;
+        if ($count > 0) {
             while ($row = mysqli_fetch_assoc($run_query)) {
-                $count = $count + 1;
-                $product_title =  $row['product_title'];
-                $image =  $row['product_image'];
-                $price =  $row['product_price'];
-                $id =     $row['product_id'];
-                $path = "../Admin/product_images/" . $image;
+                $product_title = $row['product_title'];
+                $image = $row['product_image'];
+                $price = $row['product_price'];
+                $id = $row['product_id'];
+                $stock = $row['product_stock'] ?? 0;
+                $type = $row['product_type'] ?? 'Produce';
+                $image_src = !empty($image) ? "../Admin/product_images/$image" : "../Images/Website/noimage.jpg";
 
                 echo "
-                    <div class='productbox'>
+                <div class='agro-product-card'>
+                    <div class='agro-product-card__image-wrap'>
+                        <span class='agro-badge agro-badge--green agro-product-card__badge'>$stock kg stock</span>
                         <a href='../FarmerPortal/FarmerProductDetails.php?id=$id'>
-                        <img src='../Admin/product_images/$image' alt= 'Image Not Available' onerror=this.src='../Images/Website/noimage.jpg'>
+                            <img class='agro-product-card__image' src='$image_src' alt='" . htmlspecialchars($product_title) . "' onerror=\"this.src='../Images/Website/noimage.jpg'\">
                         </a>
-
-                        <div>
-                            <p><b>$product_title</b></p>
-                            <p><b>Price : Rs $price</b></p>
+                    </div>
+                    <div class='agro-product-card__body'>
+                        <div class='agro-product-card__category'>" . htmlspecialchars($type) . "</div>
+                        <h3 class='agro-product-card__name'>" . htmlspecialchars($product_title) . "</h3>
+                        <div class='agro-product-card__footer agro-mt-4'>
+                            <div class='agro-product-card__price'>₹" . htmlspecialchars($price) . " <span class='agro-product-card__price-unit'>/ kg</span></div>
+                            <div class='agro-flex' style='gap: var(--space-2);'>
+                                <a href='../FarmerPortal/EditProduct.php?id=$id' class='agro-btn agro-btn--outline agro-btn--sm' title='Edit Product'>
+                                    <i class='fas fa-edit'></i> Edit
+                                </a>
+                                <a href='../FarmerPortal/FarmerProductDetails.php?id=$id' class='agro-btn agro-btn--primary agro-btn--sm'>
+                                    View
+                                </a>
+                            </div>
                         </div>
-
-                    </div>";
+                    </div>
+                </div>";
             }
         } else {
-            echo "<br><br><hr><h1 align = center>Product Not Uploaded !</h1><br><br><hr>";
+            echo "
+            <div class='agro-empty' style='grid-column: 1 / -1;'>
+                <div class='agro-empty__icon'>🌾</div>
+                <h3 class='agro-empty__title'>No Products Uploaded Yet</h3>
+                <p class='agro-empty__desc'>You haven't listed any farm produce on the marketplace. Add your first crop listing now!</p>
+                <a href='InsertProduct.php' class='agro-btn agro-btn--primary agro-btn--lg'><i class='fas fa-plus-circle'></i> Add New Product</a>
+            </div>";
         }
     }
     //function which is linked with BuyerProductDetails
