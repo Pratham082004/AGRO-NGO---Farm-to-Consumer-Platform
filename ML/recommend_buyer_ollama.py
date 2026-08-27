@@ -1,9 +1,7 @@
 import os
-import sys
 import json
 import argparse
 import urllib.request
-import urllib.error
 
 OLLAMA_API_URL = os.getenv("OLLAMA_API_URL", "http://localhost:11434/api/generate")
 DEFAULT_MODEL = os.getenv("OLLAMA_MODEL", "llama3")

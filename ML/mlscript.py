@@ -1,5 +1,4 @@
 import os
-import sys
 from datetime import datetime
 import smtplib
 from email.mime.multipart import MIMEMultipart 

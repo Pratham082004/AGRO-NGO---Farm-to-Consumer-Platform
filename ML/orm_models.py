@@ -1,6 +1,6 @@
 import os
-from sqlalchemy import create_engine, Column, Integer, String, Text, BigInteger, ForeignKey, SmallInteger
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+from sqlalchemy import create_engine, Column, Integer, String, Text, BigInteger, SmallInteger
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 Base = declarative_base()
 
